@@ -1,0 +1,46 @@
+@import '../../assets/styles/config/base.classes.scss';
+
+.root {
+    @include mediumFont(18px, 29px);
+    position: relative;
+    max-width: 35px;
+}
+
+.header {
+    @include flex();
+    cursor: pointer;
+
+    span {
+        margin-right: 10px;
+    }
+
+
+}
+
+.arrow,
+.arrowActive {
+    width: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.arrowActive {
+    transform: rotate(180deg);
+}
+
+.list {
+    position: absolute;
+    width: 114px;
+    top: 40px;
+    left: -20px;
+    background: #fff;
+    filter: drop-shadow(0px 4px 35px rgba(43, 95, 148, 0.19));
+}
+
+.item {
+    cursor: pointer;
+    padding: 10px 20px;
+
+    &:hover {
+        background: #EEEEEE;
+    }
+}

@@ -1,0 +1,19 @@
+@import '../../assets/styles/config/base.classes.scss';
+
+.root {}
+
+.list {
+    display: flex;
+}
+
+.link,
+.linkActive {
+    @include mediumFont(16px, 19px, 500);
+    padding: 30px 16px;
+    text-transform: uppercase;
+}
+
+.linkActive {
+    color: var(--color-navigation-link-active);
+    border-bottom: 1px solid var(--color-navigation-link-active);
+}

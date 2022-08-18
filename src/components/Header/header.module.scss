@@ -1,0 +1,11 @@
+@import '../../assets/styles/config/base.classes.scss';
+
+.root {
+    @include flex(space-between);
+    height: 80px;
+}
+
+.info {
+    @include flex(space-between);
+    width: 70px;
+}

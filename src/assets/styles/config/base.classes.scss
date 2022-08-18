@@ -1,0 +1,31 @@
+@import './vars.scss';
+
+@mixin regularFont($font: 14px, $lh: 20px) {
+  font-family: $mainFont;
+  font-size: $font;
+  line-height: $lh;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@mixin boldFont($font: 14px, $lh: 20px) {
+  font-family: $mainFont;
+  font-size: $font;
+  line-height: $lh;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+@mixin mediumFont($font: 14px, $lh: 20px, $fw: 500) {
+  font-family: $mainFont;
+  font-size: $font;
+  line-height: $lh;
+  letter-spacing: 0;
+  font-weight: $fw;
+}
+
+@mixin flex($justifyContent: center, $alignItems: center) {
+  display: flex;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+}
