@@ -5,11 +5,7 @@ const options = ['$ USD', '€ EUR', '¥ JPY'];
 
 class Currency extends React.Component {
   render() {
-    return (
-      <div>
-        <Select options={options} />
-      </div>
-    );
+    return <div>{/* <Select options={options} /> */}</div>;
   }
 }
 

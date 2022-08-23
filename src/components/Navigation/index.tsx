@@ -1,34 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CategoryItemT } from '../../redux/slices/headerSlice';
 import s from './navigation.module.scss';
-import { NavigationPropsI, NavigationStateI } from './Navigation.type';
+// import { NavigationPropsI, NavigationStateI } from './Navigation.type';
 
-const items = ['women', 'men', 'kids'];
-
-class Navigation extends React.Component<NavigationPropsI, NavigationStateI> {
-  state = {
-    items: items,
-    activeLink: items[0],
-  };
-
-  setActiveLink = (value: HTMLElement) => {
-    if (value.textContent) {
-      this.setState({ activeLink: value.textContent });
-    }
-  };
+interface NavigationPropsI {
+  categories: CategoryItemT[];
+  activeCategory: CategoryItemT;
+  setActiveLink: (val: HTMLElement) => void;
+}
+class Navigation extends React.Component<NavigationPropsI> {
+  renderCategories() {
+    return this.props.categories.map((item: CategoryItemT, idx: number) => (
+      <li key={idx}>
+        <Link
+          className={this.props.activeCategory.name === item.name ? s.linkActive : s.link}
+          to={`/${item.name}`}>
+          {item.name}
+        </Link>
+      </li>
+    ));
+  }
   render() {
     return (
       <nav className={s.root}>
-        <ul className={s.list} onClick={(e) => this.setActiveLink(e.target as HTMLElement)}>
-          {this.state.items.map((item: string, idx: number) => (
-            <li key={idx}>
-              <Link
-                className={this.state.activeLink === item ? s.linkActive : s.link}
-                to={`/${item}`}>
-                {item}
-              </Link>
-            </li>
-          ))}
+        <ul className={s.list} onClick={(e) => this.props.setActiveLink(e.target as HTMLElement)}>
+          {this.renderCategories()}
         </ul>
       </nav>
     );
