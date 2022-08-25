@@ -2,7 +2,11 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Home } from '../../pages';
 import { CategoryItemT, HeaderStateI } from '../../redux/slices/headerSlice/headerSliceTypes';
-import { getProduct, setProducts } from '../../redux/slices/homePageSlice/homePageSlice';
+import {
+  getProduct,
+  setCurrentPage,
+  setProducts,
+} from '../../redux/slices/homePageSlice/homePageSlice';
 import { HomePageStateI, ProductItemT } from '../../redux/slices/homePageSlice/homePageSliceTypes';
 import { PaginationContainer } from '../index';
 
@@ -26,6 +30,8 @@ class HomePageContainer extends React.Component<HomePageContainerPropsI> {
   componentDidUpdate(prevProps: HomePageContainerPropsI) {
     if (this.props.currentCategory !== prevProps.currentCategory) {
       this.props.getProduct(this.props.currentCategory.name).then(({ payload }: any) => {
+        const currentPage = 1;
+        this.props.setCurrentPage(currentPage);
         this.props.setProducts(payload);
       });
     }
@@ -33,7 +39,10 @@ class HomePageContainer extends React.Component<HomePageContainerPropsI> {
   render() {
     return (
       <div>
-        <Home activeProducts={this.props.activeProducts} />
+        <Home
+          activeProducts={this.props.activeProducts}
+          currentCategory={this.props.currentCategory}
+        />
         <PaginationContainer />
       </div>
     );
@@ -49,6 +58,7 @@ const mapState = (state: HomePageContainerStateT) => ({
 const mapDispatch = {
   setProducts,
   getProduct,
+  setCurrentPage,
 };
 
 const connector = connect(mapState, mapDispatch);

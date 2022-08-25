@@ -5,6 +5,25 @@ import { getCategoryQuery, getCurrencyQuery } from '../../../graphql/query';
 import { getCategoryHelper } from '../../../utils';
 import { CategoryItemT, CurrencyItemT, GetCategoryT, HeaderStateI, Status } from './headerSliceTypes';
 
+const setDefaultCurrentCategory = () => {
+    const pathname = window.location.pathname
+    const currentCategory = pathname.slice(1)
+    const obj: CategoryItemT = {
+        name: "all"
+    }
+
+    if (currentCategory) {
+        if (localStorage.getItem('currentCategory')) {
+            obj.name = localStorage.getItem('currentCategory') ?? 'all'
+        } else {
+            localStorage.setItem('currentCategory', currentCategory)
+            obj.name = currentCategory
+        }
+    }
+    return obj
+}
+
+
 const initialState: HeaderStateI = {
     currencies: [],
     currentCurrency: {
@@ -13,9 +32,7 @@ const initialState: HeaderStateI = {
     },
     status: Status.LOADING,
     categories: [],
-    currentCategory: {
-        name: 'all'
-    }
+    currentCategory: setDefaultCurrentCategory()
 }
 
 export const getCurrency = createAsyncThunk(
@@ -54,6 +71,7 @@ const headerSlice = createSlice({
         },
         setCurrentCategory: (state, action: PayloadAction<CategoryItemT>) => {
             state.currentCategory = action.payload
+            localStorage.setItem('currentCategory', action.payload.name)
         },
     },
     extraReducers: (builder) => {

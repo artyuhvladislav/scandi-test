@@ -6,5 +6,9 @@ export const store = configureStore({
     reducer: {
         header,
         home
-    },
+    }
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(setCurrentCategoryMiddleware)
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
