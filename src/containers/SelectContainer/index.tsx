@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select } from '../../components';
-import { CurrencyItemT } from '../../redux/slices/headerSlice';
+import { CurrencyItemT } from '../../redux/slices/headerSlice/headerSliceTypes';
 
 export interface SelectContainerStateI {
   isOpen: boolean;
@@ -20,7 +20,6 @@ class SelectContainer extends React.Component<SelectContainerPropsI> {
   };
 
   componentDidMount() {
-    console.log('selectContainer props', this.props);
     document.addEventListener('click', this.checkIfClickedOutside);
   }
 

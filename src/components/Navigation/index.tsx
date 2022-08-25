@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CategoryItemT } from '../../redux/slices/headerSlice';
+import { CategoryItemT } from '../../redux/slices/headerSlice/headerSliceTypes';
 import s from './navigation.module.scss';
-// import { NavigationPropsI, NavigationStateI } from './Navigation.type';
 
 interface NavigationPropsI {
   categories: CategoryItemT[];
