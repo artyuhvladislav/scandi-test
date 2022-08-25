@@ -1,29 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-export type CurrencyItemT = {
-    __typename?: string,
-    symbol: string,
-    label: string
-}
-
-export type CategoryItemT = {
-    name: string
-}
-
-export interface HeaderStateI {
-    currencies: CurrencyItemT[],
-    currentCurrency: CurrencyItemT,
-    status: Status,
-    categories: CategoryItemT[],
-    currentCategory: CategoryItemT
-}
-
-export enum Status {
-    LOADING = 'loading',
-    SUCCESS = 'success',
-    ERROR = 'error'
-}
+import { BASE_URL } from '../../../constants';
+import { getCategoryQuery, getCurrencyQuery } from '../../../graphql/query';
+import { getCategoryHelper } from '../../../utils';
+import { CategoryItemT, CurrencyItemT, GetCategoryT, HeaderStateI, Status } from './headerSliceTypes';
 
 const initialState: HeaderStateI = {
     currencies: [],
@@ -38,19 +18,11 @@ const initialState: HeaderStateI = {
     }
 }
 
-
 export const getCurrency = createAsyncThunk(
     "post/getCurrency",
     async () => {
-        const { data } = await axios.post<CurrencyItemT[]>("http://localhost:4000/", {
-            query: `
-            query {
-              currencies {
-                symbol
-                label
-              }
-            }
-          `,
+        const { data } = await axios.post<CurrencyItemT[]>(BASE_URL, {
+            query: getCurrencyQuery
         });
         return data as CurrencyItemT[];
     }
@@ -59,17 +31,10 @@ export const getCurrency = createAsyncThunk(
 export const getCategory = createAsyncThunk(
     "post/getCategory",
     async () => {
-        const { data } = await axios.post<CategoryItemT[]>("http://localhost:4000/", {
-            query: `
-            query {
-                categories {
-                  name
-                }
-              }
-          `,
+        const { data } = await axios.post<CategoryItemT[]>(BASE_URL, {
+            query: getCategoryQuery
         });
-        // @ts-ignore
-        const result = data.data.categories
+        const result = getCategoryHelper(data as unknown as GetCategoryT)
         return result as CategoryItemT[]
     }
 );
@@ -124,6 +89,9 @@ const headerSlice = createSlice({
     },
 })
 
-export const { setCurrencies, setCurrentCurrency, setCategories, setCurrentCategory } = headerSlice.actions
-
+export const {
+    setCurrencies,
+    setCurrentCurrency,
+    setCategories,
+    setCurrentCategory } = headerSlice.actions
 export default headerSlice.reducer

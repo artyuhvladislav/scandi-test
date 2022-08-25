@@ -1,24 +1,16 @@
 import React from 'react';
-import { gql } from '@apollo/client';
 import {
-  CurrencyItemT,
   getCurrency,
-  HeaderStateI,
   setCurrencies,
   setCurrentCurrency,
-  Status,
-} from '../../redux/slices/headerSlice';
+} from '../../redux/slices/headerSlice/headerSlice';
 import { connect, ConnectedProps } from 'react-redux';
 import SelectContainer from '../SelectContainer';
-
-export const GET_CURRENCY_LIST = gql`
-  query {
-    currencies {
-      symbol
-      label
-    }
-  }
-`;
+import {
+  CurrencyItemT,
+  HeaderStateI,
+  Status,
+} from '../../redux/slices/headerSlice/headerSliceTypes';
 
 interface CurrencyContainerPropsI extends PropsFromRedux {
   currencies: CurrencyItemT[];

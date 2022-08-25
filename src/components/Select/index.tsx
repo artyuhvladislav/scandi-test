@@ -1,8 +1,7 @@
 import React from 'react';
 import { down } from '../../assets/icons/index';
-import { CurrencyItemT } from '../../redux/slices/headerSlice';
+import { CurrencyItemT } from '../../redux/slices/headerSlice/headerSliceTypes';
 import s from './select.module.scss';
-// import { SelectPropsI, SelectStateI } from './Select.type';
 
 interface SelectPropsI {
   options: CurrencyItemT[];

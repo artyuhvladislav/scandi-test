@@ -1,12 +1,12 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import './App.scss';
-import { Category, Header } from './components';
-import { Cart } from './pages';
-import { CurrencyContainer } from './containers';
+import { Header } from './components';
+import HomePageContainer from './containers/HomePageContainer';
+import { BASE_URL } from './constants';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
+  uri: BASE_URL,
   cache: new InMemoryCache(),
 });
 class App extends React.Component {
@@ -15,8 +15,7 @@ class App extends React.Component {
       <ApolloProvider client={client}>
         <div className="container">
           <Header />
-          {/* <Cart /> */}
-          <Category />
+          <HomePageContainer />
         </div>
       </ApolloProvider>
     );

@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-  CategoryItemT,
   getCategory,
-  HeaderStateI,
   setCategories,
   setCurrentCategory,
-} from '../../redux/slices/headerSlice';
+} from '../../redux/slices/headerSlice/headerSlice';
 import { connect, ConnectedProps } from 'react-redux';
 import { Navigation } from '../../components';
+import { CategoryItemT, HeaderStateI } from '../../redux/slices/headerSlice/headerSliceTypes';
 
 interface CategoriesContainerPropsI extends PropsFromRedux {
   categories: CategoryItemT[];
