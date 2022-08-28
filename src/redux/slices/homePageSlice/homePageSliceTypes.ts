@@ -20,18 +20,23 @@ export type ProductAttributeT = {
 }
 
 export type ProductPriceT = {
-    amount: number
+    amount: number,
+    currency: {
+        label: string
+        symbol: string
+    }
+
 }
 
-export type ProductItemT = {
+export interface ProductItemT {
     id: string
     name: string
-    inStock: Boolean
-    gallery: string
-    description?: string
-    category?: string
-    attributes?: ProductAttributeT
-    prices: ProductPriceT
+    inStock: boolean
+    gallery: string[]
+    description: string
+    category: string
+    attributes: ProductAttributeT[]
+    prices: ProductPriceT[]
     brand: string
 }
 

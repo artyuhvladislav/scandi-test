@@ -1,0 +1,38 @@
+.root {
+    display: flex;
+    align-items: flex-start;
+    margin-right: 100px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+}
+
+.current {
+    max-width: 600px;
+
+    img {
+        width: 100%;
+    }
+}
+
+.item {
+    max-width: 80px;
+    min-height: 80px;
+    margin-bottom: 40px;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.active {
+    border: 1px solid var(--color-light-green)
+}

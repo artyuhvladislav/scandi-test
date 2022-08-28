@@ -1,0 +1,17 @@
+@import '../../../assets/styles/config/base.classes.scss';
+@import '../../../assets/styles/config/vars.scss';
+
+.root {
+    margin-bottom: 25px;
+}
+
+.title {
+    @include boldFont(18px, 18px, '', $robotoFont);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.item {
+    @include boldFont(24px, 18px, '');
+    margin-bottom: 20px;
+}

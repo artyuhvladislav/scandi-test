@@ -1,5 +1,7 @@
 #root {
   --color-white: #ffffff;
+  --color-black: #1D1F22;
   --color-cart-count: #1D1F22;
-  --color-navigation-link-active: #5ECE7B;
+  --color-light-green: #5ECE7B;
+  --color-gray: #8D8F9A;
 }

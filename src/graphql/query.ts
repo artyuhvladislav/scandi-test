@@ -12,6 +12,7 @@ export const getProductQuery = (category: string) => (`
                     amount
                     currency {
                         label
+                        symbol
                     }
                 }
             }
@@ -35,5 +36,30 @@ export const getCategoryQuery = `
         }
     }
 `;
+
+export const getProductItemQuery = (id: string) => (`
+    query {
+        product(id: "${id}") {
+            name
+            inStock
+            gallery
+            description
+            attributes {
+                name
+                items {
+                    value
+                }
+            }
+            prices {
+                amount
+                currency {
+                    label
+                    symbol
+                }
+            }
+            brand
+        }
+    }
+`);
 
 

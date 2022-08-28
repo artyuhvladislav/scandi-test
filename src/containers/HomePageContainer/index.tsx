@@ -23,18 +23,32 @@ export type HomePageContainerStateT = {
 
 class HomePageContainer extends React.Component<HomePageContainerPropsI> {
   componentDidMount() {
-    this.props.getProduct(this.props.currentCategory.name).then(({ payload }: any) => {
-      this.props.setProducts(payload);
+    this.props.getProduct(this.props.currentCategory.name).then(({ payload }) => {
+      this.props.setProducts(payload as ProductItemT[]);
     });
   }
   componentDidUpdate(prevProps: HomePageContainerPropsI) {
     if (this.props.currentCategory !== prevProps.currentCategory) {
-      this.props.getProduct(this.props.currentCategory.name).then(({ payload }: any) => {
+      this.props.getProduct(this.props.currentCategory.name).then(({ payload }) => {
         const currentPage = 1;
         this.props.setCurrentPage(currentPage);
-        this.props.setProducts(payload);
+        this.props.setProducts(payload as ProductItemT[]);
       });
     }
+  }
+
+  setActiveCurrency() {
+    let id = 0;
+
+    this.props.activeProducts.forEach((product) => {
+      product.prices.forEach((price, idx) => {
+        if (price.currency.symbol === this.props.currentCurrency.symbol) {
+          id = idx;
+          return id;
+        }
+      });
+    });
+    return id;
   }
   render() {
     return (
@@ -42,6 +56,7 @@ class HomePageContainer extends React.Component<HomePageContainerPropsI> {
         <Home
           activeProducts={this.props.activeProducts}
           currentCategory={this.props.currentCategory}
+          id={this.setActiveCurrency()}
         />
         <PaginationContainer />
       </div>
@@ -53,6 +68,7 @@ const mapState = (state: HomePageContainerStateT) => ({
   currentCategory: state.header.currentCategory,
   products: state.home.products,
   activeProducts: state.home.activeProducts,
+  currentCurrency: state.header.currentCurrency,
 });
 
 const mapDispatch = {

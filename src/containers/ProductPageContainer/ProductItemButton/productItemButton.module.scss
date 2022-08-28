@@ -1,0 +1,21 @@
+@import '../../../assets/styles/config/base.classes.scss';
+@import '../../../assets/styles/config/vars.scss';
+
+.button {
+    @include mediumFont(16px, 19px, 600);
+    padding: 16px 32px;
+    margin-bottom: 40px;
+    background: var(--color-light-green);
+    cursor: pointer;
+    color: var(--color-white);
+    transition: ease-in-out 0.2s;
+
+    &:hover:not([disabled]) {
+        transform: scale(1.05);
+    }
+
+    &:disabled {
+        background: var(--color-gray);
+        cursor: not-allowed;
+    }
+}

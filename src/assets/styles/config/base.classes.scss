@@ -1,23 +1,31 @@
 @import './vars.scss';
 
-@mixin regularFont($font: 14px, $lh: 20px) {
-  font-family: $mainFont;
+@mixin lightFont($font: 14px, $lh: 20px, $fw: 300, $ff:$mainFont) {
+  font-family: $ff;
+  font-size: $font;
+  line-height: $lh;
+  letter-spacing: 0;
+  font-weight: 300;
+}
+
+@mixin regularFont($font: 14px, $lh: 20px, $fw: 400, $ff:$mainFont) {
+  font-family: $ff;
   font-size: $font;
   line-height: $lh;
   letter-spacing: 0;
   font-weight: 400;
 }
 
-@mixin boldFont($font: 14px, $lh: 20px) {
-  font-family: $mainFont;
+@mixin boldFont($font: 14px, $lh: 20px, $fw: 700, $ff:$mainFont) {
+  font-family: $ff;
   font-size: $font;
   line-height: $lh;
   letter-spacing: 0;
   font-weight: 700;
 }
 
-@mixin mediumFont($font: 14px, $lh: 20px, $fw: 500) {
-  font-family: $mainFont;
+@mixin mediumFont($font: 14px, $lh: 20px, $fw: 500, $ff:$mainFont) {
+  font-family: $ff;
   font-size: $font;
   line-height: $lh;
   letter-spacing: 0;

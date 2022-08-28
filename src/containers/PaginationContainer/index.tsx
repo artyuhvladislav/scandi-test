@@ -2,11 +2,16 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { setCurrentPage } from '../../redux/slices/homePageSlice/homePageSlice';
 import { Pagination } from '../../components';
+import { HomePageStateI } from './../../redux/slices/homePageSlice/homePageSliceTypes';
 
 interface PaginationContainerPropsI extends PropsFromRedux {
   currentPage: number;
   maxProductsCount: number;
   totalCount: number;
+}
+
+interface PaginationContainerStateI {
+  home: HomePageStateI;
 }
 
 class PaginationContainer extends React.Component<PaginationContainerPropsI> {
@@ -33,7 +38,7 @@ class PaginationContainer extends React.Component<PaginationContainerPropsI> {
   }
 }
 
-const mapState = (state: any) => ({
+const mapState = (state: PaginationContainerStateI) => ({
   currentPage: state.home.currentPage,
   maxProductsCount: state.home.maxProductsCount,
   totalCount: state.home.products.length,

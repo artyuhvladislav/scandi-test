@@ -14,7 +14,7 @@ class Navigation extends React.Component<NavigationPropsI> {
       <li key={idx}>
         <Link
           className={this.props.activeCategory.name === item.name ? s.linkActive : s.link}
-          to={idx === 0 ? '' : `/${item.name}`}>
+          to={item.name}>
           {item.name}
         </Link>
       </li>

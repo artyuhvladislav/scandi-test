@@ -22,10 +22,18 @@ type CurrencyContainerStateT = {
   header: HeaderStateI;
 };
 
+type CurrencyData = {
+  data: {
+    currencies: CurrencyItemT[];
+  };
+};
+
 class CurrencyContainer extends React.Component<CurrencyContainerPropsI> {
   componentDidMount() {
-    this.props.getCurrency().then(({ payload }: any) => {
-      this.props.setCurrencies(payload.data.currencies);
+    this.props.getCurrency().then(({ payload }) => {
+      // @ts-ignore
+      const data = payload.data.currencies as CurrencyItemT[];
+      this.props.setCurrencies(data);
     });
   }
   render() {
