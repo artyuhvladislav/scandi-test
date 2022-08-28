@@ -4,8 +4,9 @@ import { ProductPriceT } from '../../../redux/slices/homePageSlice/homePageSlice
 import { ProductStateI } from '../../../redux/slices/productSlice/productSliceTypes';
 import s from './productPrice.module.scss';
 
-interface ProductItemPricePropsI extends PropsFromRedux {
-  price: ProductPriceT;
+interface ProductItemPricePropsI {
+  currencyId: number;
+  prices: ProductPriceT[];
 }
 
 interface ProductItemPriceStateI {
@@ -14,27 +15,29 @@ interface ProductItemPriceStateI {
 
 class ProductItemPrice extends React.Component<ProductItemPricePropsI> {
   render() {
-    const { amount, currency } = this.props.price;
+    console.log(this.props.currencyId);
     return (
       <div className={s.root}>
         <h3 className={s.title}>Price: </h3>
         <p className={s.item}>
-          {currency?.symbol} {amount}
+          {this.props.prices && this.props?.prices[this.props.currencyId].currency.symbol}{' '}
+          {this.props.prices && this.props?.prices[this.props.currencyId].amount}
         </p>
       </div>
     );
   }
 }
 
-const mapState = (state: ProductItemPriceStateI) => ({
-  price: state.product.price,
-});
+// const mapState = (state: ProductItemPriceStateI) => ({
+//   price: state.product.price,
+// });
 
-const mapDispatch = {
-  // setPrice,
-};
+// const mapDispatch = {
+//   // setPrice,
+// };
 
-const connector = connect(mapState, mapDispatch);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+// const connector = connect(mapState, mapDispatch);
+// type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connector(ProductItemPrice);
+// export default connector(ProductItemPrice);
+export default ProductItemPrice;

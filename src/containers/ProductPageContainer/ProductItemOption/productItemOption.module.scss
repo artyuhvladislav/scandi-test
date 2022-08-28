@@ -24,7 +24,8 @@
     cursor: pointer;
 
     span {
-        display: block;
+        text-align: center;
+        @include flex();
         padding: 13px 27px;
         @include regularFont(16px, 18px, '', $sourceSansPro);
     }

@@ -8,6 +8,7 @@ import {
   setProducts,
 } from '../../redux/slices/homePageSlice/homePageSlice';
 import { HomePageStateI, ProductItemT } from '../../redux/slices/homePageSlice/homePageSliceTypes';
+import { setActiveCurrency } from '../../utils';
 import { PaginationContainer } from '../index';
 
 interface HomePageContainerPropsI extends PropsFromRedux {
@@ -38,18 +39,9 @@ class HomePageContainer extends React.Component<HomePageContainerPropsI> {
   }
 
   setActiveCurrency() {
-    let id = 0;
-
-    this.props.activeProducts.forEach((product) => {
-      product.prices.forEach((price, idx) => {
-        if (price.currency.symbol === this.props.currentCurrency.symbol) {
-          id = idx;
-          return id;
-        }
-      });
-    });
-    return id;
+    return setActiveCurrency(this.props.activeProducts, this.props.currentCurrency.symbol);
   }
+
   render() {
     return (
       <div>

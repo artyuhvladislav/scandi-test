@@ -49,5 +49,26 @@ export const getSelectedOption = (target: HTMLElement, options: OptionItemT[], p
     } else {
         return { value: '' } as OptionItemT
     }
-
 };
+
+export const setActiveCurrency = (activeProducts: ProductItemT[] | ProductItemT, symbol: string) => {
+    let id = 0;
+    if (Array.isArray(activeProducts)) {
+        activeProducts.forEach((product) => {
+            product.prices.forEach((price, idx) => {
+                if (price.currency.symbol === symbol) {
+                    id = idx;
+                    return id;
+                }
+            });
+        });
+    } else {
+        activeProducts.prices?.forEach((price, idx) => {
+            if (price.currency.symbol === symbol) {
+                id = idx;
+                return id;
+            }
+        });
+    }
+    return id;
+}
