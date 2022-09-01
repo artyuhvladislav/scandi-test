@@ -5,17 +5,23 @@ import {
 } from '../../../redux/slices/homePageSlice/homePageSliceTypes';
 import { ProductItemOption } from '../../../containers';
 import s from './productItemOptions.module.scss';
-import { OptionItemT } from '../ProductItemOption';
 
-class ProductItemOptions extends React.Component<ProductItemT> {
+interface ProductItemOptionsPropsI extends ProductItemT {
+  itemId?: number;
+}
+class ProductItemOptions extends React.Component<ProductItemOptionsPropsI> {
   createProductItemOptions() {
-    return this.props.attributes?.map((atr: ProductAttributeT, idx) => (
-      <ProductItemOption
-        key={idx}
-        options={atr.items as unknown as OptionItemT[]}
-        name={atr.name}
-      />
-    ));
+    return this.props.attributes?.map((atr: ProductAttributeT, idx) => {
+      return (
+        <ProductItemOption
+          key={idx}
+          itemId={this.props.itemId}
+          options={atr.items}
+          name={atr.name}
+          selectedItem={atr.selectedItem}
+        />
+      );
+    });
   }
   render() {
     return (

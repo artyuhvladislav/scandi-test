@@ -8,6 +8,12 @@ export const getProductQuery = (category: string) => (`
                 inStock
                 brand
                 name
+                attributes {
+                    name
+                    items {
+                        value
+                    }
+                }
                 prices {
                     amount
                     currency {

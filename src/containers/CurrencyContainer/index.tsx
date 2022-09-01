@@ -6,34 +6,22 @@ import {
 } from '../../redux/slices/headerSlice/headerSlice';
 import { connect, ConnectedProps } from 'react-redux';
 import SelectContainer from '../SelectContainer';
-import {
-  CurrencyItemT,
-  HeaderStateI,
-  Status,
-} from '../../redux/slices/headerSlice/headerSliceTypes';
+import { CurrencyItemT, HeaderStateI } from '../../redux/slices/headerSlice/headerSliceTypes';
+import { setTotalPrice } from '../../redux/slices/cartSlice/cartSlice';
 
 interface CurrencyContainerPropsI extends PropsFromRedux {
   currencies: CurrencyItemT[];
   currentCurrency: CurrencyItemT;
-  status: Status;
 }
 
 type CurrencyContainerStateT = {
   header: HeaderStateI;
 };
 
-type CurrencyData = {
-  data: {
-    currencies: CurrencyItemT[];
-  };
-};
-
 class CurrencyContainer extends React.Component<CurrencyContainerPropsI> {
   componentDidMount() {
     this.props.getCurrency().then(({ payload }) => {
-      // @ts-ignore
-      const data = payload.data.currencies as CurrencyItemT[];
-      this.props.setCurrencies(data);
+      this.props.setCurrencies(payload as CurrencyItemT[]);
     });
   }
   render() {
@@ -42,6 +30,7 @@ class CurrencyContainer extends React.Component<CurrencyContainerPropsI> {
         options={this.props.currencies}
         currentOption={this.props.currentCurrency}
         setCurrentCurrency={this.props.setCurrentCurrency}
+        setTotalPrice={this.props.setTotalPrice}
       />
     );
   }
@@ -50,13 +39,13 @@ class CurrencyContainer extends React.Component<CurrencyContainerPropsI> {
 const mapState = (state: CurrencyContainerStateT) => ({
   currencies: state.header.currencies,
   currentCurrency: state.header.currentCurrency,
-  status: state.header.status,
 });
 
 const mapDispatch = {
   setCurrencies,
   setCurrentCurrency,
   getCurrency,
+  setTotalPrice,
 };
 
 const connector = connect(mapState, mapDispatch);

@@ -1,0 +1,49 @@
+@import '../../assets/styles/config/base.classes.scss';
+
+.modal {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: rgba(57, 55, 72, 0.22);
+}
+
+.modalContainer {
+    position: relative;
+    padding: 32px 16px;
+    max-width: 725px;
+    max-height: 677px;
+    position: fixed;
+    z-index: 2;
+    right: 200px;
+    top: 80px;
+    background: var(--color-white);
+    overflow-y: scroll
+}
+
+.close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    @include flex();
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--color-black);
+    cursor: pointer;
+    margin-left: 20px;
+
+    &:hover {
+        img {
+            scale: 1.5;
+        }
+    }
+
+    img {
+        transform: rotate(45deg);
+        transition: ease-in-out 0.2s;
+    }
+
+}

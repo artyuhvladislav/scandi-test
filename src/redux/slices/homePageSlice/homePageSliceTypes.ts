@@ -16,7 +16,8 @@ export type ProductAttributeT = {
         displayValue: string
         value: string
         id: string
-    }
+    }[],
+    selectedItem: SelectedAttributeT
 }
 
 export type ProductPriceT = {
@@ -28,6 +29,11 @@ export type ProductPriceT = {
 
 }
 
+export type SelectedAttributeT = {
+    displayValue: string
+    value: string
+    id: string
+}
 export interface ProductItemT {
     id: string
     name: string
@@ -37,7 +43,7 @@ export interface ProductItemT {
     category: string
     attributes: ProductAttributeT[]
     prices: ProductPriceT[]
-    brand: string
+    brand: string,
 }
 
 export interface HomePageStateI {

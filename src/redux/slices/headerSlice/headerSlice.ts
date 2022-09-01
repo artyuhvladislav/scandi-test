@@ -2,27 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BASE_URL } from '../../../constants';
 import { getCategoryQuery, getCurrencyQuery } from '../../../graphql/query';
-import { getCategoryHelper } from '../../../utils';
+import { getCategoryHelper, setDefaultCurrentCategory } from '../../../utils';
 import { CategoryItemT, CurrencyItemT, GetCategoryT, HeaderStateI, Status } from './headerSliceTypes';
-
-const setDefaultCurrentCategory = () => {
-    const pathname = window.location.pathname
-    const currentCategory = pathname.slice(1)
-    const obj: CategoryItemT = {
-        name: "all"
-    }
-
-    if (currentCategory) {
-        if (localStorage.getItem('currentCategory')) {
-            obj.name = localStorage.getItem('currentCategory') ?? 'all'
-        } else {
-            localStorage.setItem('currentCategory', currentCategory)
-            obj.name = currentCategory
-        }
-    }
-    return obj
-}
-
 
 const initialState: HeaderStateI = {
     currencies: [],
@@ -31,17 +12,22 @@ const initialState: HeaderStateI = {
         label: 'USD'
     },
     status: Status.LOADING,
-    categories: [],
+    categories: [{ name: 'all' }, { name: 'clothes' }, { name: 'tech' }],
     currentCategory: setDefaultCurrentCategory()
 }
+type CurrencyData = {
+    data: {
+        currencies: CurrencyItemT[];
+    };
+};
 
 export const getCurrency = createAsyncThunk(
     "post/getCurrency",
     async () => {
-        const { data } = await axios.post<CurrencyItemT[]>(BASE_URL, {
+        const { data } = await axios.post<CurrencyData>(BASE_URL, {
             query: getCurrencyQuery
         });
-        return data as CurrencyItemT[];
+        return data.data.currencies as CurrencyItemT[];
     }
 );
 

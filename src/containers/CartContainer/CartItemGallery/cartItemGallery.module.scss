@@ -1,0 +1,33 @@
+@import '../../../assets/styles/config/base.classes.scss';
+
+.root {
+    position: relative;
+    max-height: 288px;
+    max-width: 200px;
+
+    img {
+        max-width: 100%;
+    }
+}
+
+.buttons {
+    display: flex;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+}
+
+.button {
+    @include flex();
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+    background: rgba(0, 0, 0, 0.73);
+    cursor: pointer;
+}
+
+.button+.button {
+    img {
+        transform: rotate(180deg);
+    }
+}

@@ -1,18 +1,22 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getProductItemQuery } from '../../../graphql/query';
-import { getProductItemHelper } from '../../../utils';
+import { getProductItemHelper, setDefaultSelectedAttribute } from '../../../utils';
 import { Status } from '../headerSlice/headerSliceTypes';
 import { GetProductItemT, ProductStateI } from './productSliceTypes';
 import { BASE_URL } from '../../../constants/index';
-import { ProductItemT, ProductPriceT } from '../homePageSlice/homePageSliceTypes';
+import { ProductItemT, ProductPriceT, SelectedAttributeT } from '../homePageSlice/homePageSliceTypes';
+import { OptionItemT } from '../../../containers/ProductPageContainer/ProductItemOption';
 
-const initialState: ProductStateI = {
+const defaultState: ProductStateI = {
     product: {} as ProductItemT,
     status: Status.LOADING,
-    price: {} as ProductPriceT
-
+    price: {} as ProductPriceT,
 }
+
+// const attributes = setDefaultSelectedAttribute(defaultState.product.attributes)
+
+const initialState: ProductStateI = { ...defaultState }
 
 export const fetchProduct = createAsyncThunk(
     "post/fetchProduct",
@@ -33,7 +37,16 @@ const productSlice = createSlice({
         setProduct: (state, action: PayloadAction<ProductItemT>) => {
             state.product = action.payload;
             state.price = action.payload.prices[0]
-        }
+            state.product.attributes = setDefaultSelectedAttribute(state.product.attributes)
+        },
+        setSelectedAttribute: (state, action: PayloadAction<any>) => {
+            state.product.attributes = state.product.attributes.map(atr => {
+                if (atr.name === action.payload.name) {
+                    return { ...atr, selectedItem: action.payload.selectedItem }
+                }
+                return atr
+            })
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchProduct.fulfilled, (state, action) => {
@@ -54,5 +67,5 @@ const productSlice = createSlice({
     },
 })
 
-export const { setProduct } = productSlice.actions
+export const { setProduct, setSelectedAttribute } = productSlice.actions
 export default productSlice.reducer

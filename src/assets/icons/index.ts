@@ -1,4 +1,8 @@
 export { default as cart } from './cart.svg'
+export { default as cartWhite } from './cartWhite.svg'
 export { default as currency } from './currency.svg'
 export { default as down } from './down.svg'
 export { default as logo } from './logo.svg'
+export { default as arrow } from './arrow.svg'
+export { default as plus } from './plus.svg'
+export { default as minus } from './minus.svg'

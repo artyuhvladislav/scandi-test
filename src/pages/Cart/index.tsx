@@ -1,16 +1,12 @@
-import React from 'react';
-import CartItem from '../../components/Cart/CartItem';
+import React, { ReactNode } from 'react';
 import s from './cart.module.scss';
 
-class Cart extends React.Component {
+interface CartPropsI {
+  children: ReactNode | ReactNode[];
+}
+class Cart extends React.Component<CartPropsI> {
   render() {
-    return (
-      <div className={s.root}>
-        <h1 className={s.title}>Cart</h1>
-        <CartItem />
-        <CartItem />
-      </div>
-    );
+    return <div className={s.root}>{this.props.children}</div>;
   }
 }
 

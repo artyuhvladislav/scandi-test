@@ -1,3 +1,4 @@
+import { ActionCreatorWithPayload, PayloadAction } from '@reduxjs/toolkit';
 import React from 'react';
 import {
   ProductItemOptions,
@@ -6,6 +7,7 @@ import {
   ProductItemButton,
   ProductItemDescription,
 } from '../../containers';
+import { OptionItemT } from '../../containers/ProductPageContainer/ProductItemOption';
 import { ProductItemT } from '../../redux/slices/homePageSlice/homePageSliceTypes';
 import s from './productPage.module.scss';
 
@@ -13,6 +15,7 @@ interface ProductPagePropsI {
   product: ProductItemT;
   children: string;
   currencyId: number;
+  addProductToCart: () => void;
 }
 
 class ProductPage extends React.Component<ProductPagePropsI> {
@@ -23,7 +26,10 @@ class ProductPage extends React.Component<ProductPagePropsI> {
         <div className={s.info}>
           <ProductItemOptions {...this.props.product} />
           <ProductItemPrice currencyId={this.props.currencyId} prices={this.props.product.prices} />
-          <ProductItemButton inStock={this.props.product.inStock} />
+          <ProductItemButton
+            inStock={this.props.product.inStock}
+            addProductToCart={this.props.addProductToCart}
+          />
           <ProductItemDescription children={this.props.children} />
         </div>
       </div>

@@ -10,7 +10,7 @@
     transition: ease-in-out 0.2s;
 
 
-    img {
+    .productImg {
         display: block;
         margin: 0 auto;
         max-width: 100%;
@@ -49,4 +49,15 @@
 
 .price {
     @include mediumFont(18px, 29px)
+}
+
+.toCart {
+    @include flex();
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: var(--color-light-green);
 }

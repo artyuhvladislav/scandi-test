@@ -10,7 +10,7 @@ interface NavigationPropsI {
 }
 class Navigation extends React.Component<NavigationPropsI> {
   renderCategories() {
-    return this.props.categories.map((item: CategoryItemT, idx: number) => (
+    return this.props.categories?.map((item: CategoryItemT, idx: number) => (
       <li key={idx}>
         <Link
           className={this.props.activeCategory.name === item.name ? s.linkActive : s.link}

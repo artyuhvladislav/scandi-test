@@ -1,0 +1,40 @@
+@import '../../assets/styles/config/base.classes.scss';
+
+.title {
+    @include boldFont(32px, 40px);
+    margin-bottom: 55px;
+}
+
+.list {
+    margin-bottom: 32px;
+}
+
+.item {
+    display: flex;
+    padding: 24px 0;
+    border-top: 1px solid var(--color-light-gray);
+
+    &:last-child {
+        border-bottom: 1px solid var(--color-light-gray);
+    }
+}
+
+.button {
+    @include flex();
+    width: 45px;
+    height: 45px;
+    border: 1px solid var(--color-black);
+    cursor: pointer;
+    margin-left: 20px;
+
+    &:hover {
+        img {
+            scale: 1.5;
+        }
+    }
+
+    img {
+        transform: rotate(45deg);
+        transition: ease-in-out 0.2s;
+    }
+}

@@ -10,6 +10,7 @@ interface SelectContainerPropsI {
   options: CurrencyItemT[];
   currentOption: CurrencyItemT;
   setCurrentCurrency: (obj: CurrencyItemT) => void;
+  setTotalPrice: (obj: CurrencyItemT) => void;
 }
 
 class SelectContainer extends React.Component<SelectContainerPropsI> {
@@ -49,6 +50,7 @@ class SelectContainer extends React.Component<SelectContainerPropsI> {
         label,
       };
       this.props.setCurrentCurrency(payload);
+      this.props.setTotalPrice(payload);
     }
     this.toggleListVisibility();
   };

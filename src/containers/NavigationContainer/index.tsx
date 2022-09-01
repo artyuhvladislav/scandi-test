@@ -24,9 +24,17 @@ class NavigationContainer extends React.Component<CategoriesContainerPropsI> {
     }
   };
   componentDidMount() {
-    this.props.getCategory().then(({ payload }: any) => {
-      this.props.setCategories(payload);
-    });
+    this.props
+      .getCategory()
+      .then(({ payload }) => {
+        if (!payload) {
+          throw new Error();
+        }
+        this.props.setCategories(payload as CategoryItemT[]);
+      })
+      .catch(() => {
+        this.props.setCategories([{ name: 'all' }, { name: 'clothes' }, { name: 'tech' }]);
+      });
   }
   render() {
     return (

@@ -7,22 +7,21 @@ import s from './productPrice.module.scss';
 interface ProductItemPricePropsI {
   currencyId: number;
   prices: ProductPriceT[];
+  count?: number;
 }
-
-interface ProductItemPriceStateI {
-  product: ProductStateI;
-}
-
 class ProductItemPrice extends React.Component<ProductItemPricePropsI> {
+  setPrice() {
+    if (this.props.prices) {
+      const symbol = this.props?.prices[this.props.currencyId].currency.symbol;
+      const price = this.props?.prices[this.props.currencyId].amount * (this.props.count || 1);
+      return `${symbol} ${price}`;
+    }
+  }
   render() {
-    console.log(this.props.currencyId);
     return (
       <div className={s.root}>
         <h3 className={s.title}>Price: </h3>
-        <p className={s.item}>
-          {this.props.prices && this.props?.prices[this.props.currencyId].currency.symbol}{' '}
-          {this.props.prices && this.props?.prices[this.props.currencyId].amount}
-        </p>
+        <p className={s.item}>{this.setPrice()}</p>
       </div>
     );
   }

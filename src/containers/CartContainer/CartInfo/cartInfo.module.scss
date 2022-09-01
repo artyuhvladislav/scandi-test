@@ -1,0 +1,18 @@
+@import '../../../assets/styles/config/base.classes.scss';
+
+.info {
+    @include regularFont(24px, 28px);
+
+    span {
+        @include boldFont(24px, 28px)
+    }
+}
+
+.button {
+    margin-top: 15px;
+    @include mediumFont(14px, 16px, 600);
+    padding: 13px 115px;
+    color: var(--color-white);
+    background: var(--color-light-green);
+    cursor: pointer;
+}

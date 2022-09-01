@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { setSelectedCartAttribute } from '../../../redux/slices/cartSlice/cartSlice';
+import { CartStateI } from '../../../redux/slices/cartSlice/cartSliceTypes';
+import { setSelectedAttribute } from '../../../redux/slices/productSlice/productSlice';
 import { getSelectedOption, setBorderStyle } from '../../../utils';
 import s from './productItemOption.module.scss';
 
@@ -6,14 +10,20 @@ export type OptionItemT = {
   value: string;
 };
 
-interface ProductItemOptionPropsI {
+interface ProductItemOptionPropsI extends PropsFromRedux {
   name: string;
   options: OptionItemT[];
+  selectedItem: OptionItemT;
+  itemId: number | undefined;
 }
 
 interface ProductItemOptionStateI {
   optionName: string;
   selectedOption: OptionItemT;
+}
+
+interface ProductItemOptionStateFromStoreI {
+  cart: CartStateI;
 }
 
 class ProductItemOption extends React.Component<ProductItemOptionPropsI, ProductItemOptionStateI> {
@@ -25,9 +35,20 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
     },
   };
 
+  setInitialValue() {
+    let value: string;
+    if (this.props.selectedItem) {
+      value = this.props.selectedItem.value;
+    } else {
+      value = this.state.selectedOption.value;
+    }
+    return value;
+  }
+
   createOptionList() {
     return this.props.options.map((item, idx) => {
-      const { value } = this.state.selectedOption;
+      const value = this.setInitialValue();
+
       if (this.props.name === this.state.optionName) {
         return (
           <li
@@ -48,9 +69,21 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
   }
 
   setSelectedOption = (target: HTMLElement) => {
-    // @ts-ignore
     const selectedOption: OptionItemT = getSelectedOption(target, this.props.options, this.ulRef);
+
     this.setState({ selectedOption });
+    if (this.props.items.length !== 0 && window.location.pathname === '/cart') {
+      this.props.setSelectedCartAttribute({
+        name: this.props.name,
+        selectedItem: selectedOption,
+        id: this.props.itemId,
+      });
+    } else {
+      this.props.setSelectedAttribute({
+        name: this.props.name,
+        selectedItem: selectedOption,
+      });
+    }
   };
 
   render() {
@@ -68,4 +101,16 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
   }
 }
 
-export default ProductItemOption;
+const mapState = (state: ProductItemOptionStateFromStoreI) => ({
+  items: state.cart.items,
+});
+
+const mapDispatch = {
+  setSelectedAttribute,
+  setSelectedCartAttribute,
+};
+
+const connector = connect(mapState, mapDispatch);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(ProductItemOption);

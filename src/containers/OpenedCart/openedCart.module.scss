@@ -1,0 +1,36 @@
+@import '../../assets/styles/config/base.classes.scss';
+// @import '../../assets/styles/config/vars.scss';
+
+.title {
+    @include boldFont(16px, 25px);
+    margin-bottom: 32px;
+
+    span {
+        @include mediumFont(16px, 25px)
+    }
+}
+
+.price {
+    min-width: 300px;
+    @include flex(space-between);
+    margin-bottom: 32px;
+    @include boldFont(16px, 18px, 700, $robotoFont)
+}
+
+.buttons {
+    min-width: 300px;
+    @include flex(space-between);
+}
+
+.button {
+    @include mediumFont(14px, 16px);
+    padding: 13px 36px;
+    border: 1px solid var(--color-black);
+    cursor: pointer;
+}
+
+.buttonGreen {
+    border: 0;
+    color: var(--color-white);
+    background: var(--color-light-green);
+}

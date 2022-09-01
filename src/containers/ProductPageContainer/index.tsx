@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactHtmlParser, { processNodes, convertNodeToElement, Transform } from 'react-html-parser';
+import ReactHtmlParser, { convertNodeToElement, Transform } from 'react-html-parser';
 import { connect, ConnectedProps } from 'react-redux';
 import { fetchProduct, setProduct } from '../../redux/slices/productSlice/productSlice';
 import { getProductIdFromUrl, setActiveCurrency } from '../../utils';
@@ -7,14 +7,14 @@ import { ProductPage } from '../../components';
 import { ProductItemT } from '../../redux/slices/homePageSlice/homePageSliceTypes';
 import { ProductStateI } from '../../redux/slices/productSlice/productSliceTypes';
 import { HeaderStateI } from '../../redux/slices/headerSlice/headerSliceTypes';
+import { addProduct, setTotalPrice } from '../../redux/slices/cartSlice/cartSlice';
 
-interface ProductPageContainerPropsI extends PropsFromRedux {}
 type ProductItemContainerStateT = {
   product: ProductStateI;
   header: HeaderStateI;
 };
 
-class ProductPageContainer extends React.Component<ProductPageContainerPropsI> {
+class ProductPageContainer extends React.Component<PropsFromRedux> {
   componentDidMount() {
     const id = getProductIdFromUrl();
     this.props.fetchProduct(id).then(({ payload }) => {
@@ -34,10 +34,22 @@ class ProductPageContainer extends React.Component<ProductPageContainerPropsI> {
     };
     return ReactHtmlParser(input, { transform });
   };
+  addProductToCart = () => {
+    if (!this.props.product.inStock) {
+      this.props.addProduct({
+        product: this.props.product,
+        count: 1,
+      });
+      this.props.setTotalPrice(this.props.currentCurrency);
+    }
+  };
 
   render() {
     return (
-      <ProductPage product={this.props.product} currencyId={this.setActiveCurrency()}>
+      <ProductPage
+        product={this.props.product}
+        currencyId={this.setActiveCurrency()}
+        addProductToCart={this.addProductToCart}>
         {this.parserToHTML(this.props.product.description || '') as unknown as string}
       </ProductPage>
     );
@@ -52,6 +64,8 @@ const mapState = (state: ProductItemContainerStateT) => ({
 const mapDispatch = {
   setProduct,
   fetchProduct,
+  addProduct,
+  setTotalPrice,
 };
 
 const connector = connect(mapState, mapDispatch);

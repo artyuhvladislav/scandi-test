@@ -3,6 +3,7 @@
 .root {
     position: relative;
     max-width: 30px;
+    cursor: pointer;
 
     img {
         max-width: 20px;
@@ -20,4 +21,12 @@
     background: var(--color-cart-count);
     border-radius: 60px;
     color: var(--color-white)
+}
+
+.container {
+    position: absolute;
+    width: 325px;
+    top: 50px;
+    right: -25px;
+    background: #000;
 }
