@@ -9,9 +9,9 @@ interface ProductPropsI extends ProductItemT {
 class Product extends React.Component<ProductPropsI> {
   render() {
     return (
-      <div className={this.props.inStock === true ? s.opacity : s.root}>
+      <div className={this.props.inStock === true ? s.root : s.opacity}>
         <Link to={`id/${this.props.id}`}>
-          {this.props.inStock && <p className={s.opacityText}>OUT OF STOCK</p>}
+          {!this.props.inStock && <p className={s.opacityText}>OUT OF STOCK</p>}
           <img className={s.productImg} src={this.props.gallery[0]} alt="productImg" />
           <div className={s.text}>
             <h3 className={s.title}>{this.props.name}</h3>

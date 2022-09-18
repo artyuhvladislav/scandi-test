@@ -12,7 +12,7 @@ const initialState: HeaderStateI = {
         label: 'USD'
     },
     status: Status.LOADING,
-    categories: [{ name: 'all' }, { name: 'clothes' }, { name: 'tech' }],
+    categories: [],
     currentCategory: setDefaultCurrentCategory()
 }
 type CurrencyData = {

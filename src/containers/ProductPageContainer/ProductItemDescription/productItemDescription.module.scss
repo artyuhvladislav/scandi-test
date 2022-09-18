@@ -1,6 +1,12 @@
 @import '../../../assets/styles/config/base.classes.scss';
 @import '../../../assets/styles/config/vars.scss';
 
+
+
 .root {
     @include regularFont(16px, 26px, '', $robotoFont);
+
+    ul {
+        list-style: initial;
+    }
 }

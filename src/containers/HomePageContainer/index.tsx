@@ -23,34 +23,41 @@ export type HomePageContainerStateT = {
 };
 
 class HomePageContainer extends React.Component<HomePageContainerPropsI> {
+  mounted = false;
+
   componentDidMount() {
-    this.props.getProduct(this.props.currentCategory.name).then(({ payload }) => {
-      this.props.setProducts(payload as ProductItemT[]);
-    });
+    console.log('comp did mount');
+    if (!this.mounted) {
+      this.props.getProduct(this.props.currentCategory.name).then(({ payload }) => {
+        this.props.setProducts(payload as ProductItemT[]);
+      });
+      this.mounted = true;
+    }
   }
   componentDidUpdate(prevProps: HomePageContainerPropsI) {
+    console.log('comp did update');
     if (this.props.currentCategory !== prevProps.currentCategory) {
       this.props.getProduct(this.props.currentCategory.name).then(({ payload }) => {
         const currentPage = 1;
-        this.props.setCurrentPage(currentPage);
+        // this.props.setCurrentPage(currentPage);
         this.props.setProducts(payload as ProductItemT[]);
       });
     }
   }
 
   setActiveCurrency() {
-    return setActiveCurrency(this.props.activeProducts, this.props.currentCurrency.symbol);
+    return setActiveCurrency(this.props.products, this.props.currentCurrency.symbol);
   }
 
   render() {
     return (
       <div>
         <Home
-          activeProducts={this.props.activeProducts}
+          activeProducts={this.props.products}
           currentCategory={this.props.currentCategory}
           id={this.setActiveCurrency()}
         />
-        <PaginationContainer />
+        {/* <PaginationContainer /> */}
       </div>
     );
   }

@@ -10,11 +10,11 @@ export const setActiveProducts = (
     currentPage: number,
     products: ProductItemT[]) => {
 
-    let start = maxProductsCount * (currentPage - 1)
-    let end = maxProductsCount * currentPage
-    const activeProducts = products.filter((_, idx) => start <= idx && end > idx)
+    // let start = maxProductsCount * (currentPage - 1)
+    // let end = maxProductsCount * currentPage
+    // const activeProducts = products.filter((_, idx) => start <= idx && end > idx)
 
-    return activeProducts
+    // return activeProducts
 }
 
 export const getCategoryHelper = (data: GetCategoryT) => {

@@ -10,7 +10,7 @@ class ProductItemButton extends React.Component<ProductItemButtonPropsI> {
   render() {
     return (
       <button
-        disabled={this.props.inStock}
+        disabled={!this.props.inStock}
         className={s.button}
         onClick={this.props.addProductToCart}>
         ADD TO CART

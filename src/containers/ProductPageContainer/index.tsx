@@ -17,6 +17,7 @@ type ProductItemContainerStateT = {
 class ProductPageContainer extends React.Component<PropsFromRedux> {
   componentDidMount() {
     const id = getProductIdFromUrl();
+    console.log(id);
     this.props.fetchProduct(id).then(({ payload }) => {
       this.props.setProduct(payload as ProductItemT);
     });
@@ -26,7 +27,6 @@ class ProductPageContainer extends React.Component<PropsFromRedux> {
   }
   parserToHTML = (input: string) => {
     const transform: Transform = (node, index) => {
-      // convert <ul> to <ol>
       if (node.type === 'tag' && node.name === 'h1') {
         node.name = 'h3';
         return convertNodeToElement(node, index, transform);
@@ -45,6 +45,7 @@ class ProductPageContainer extends React.Component<PropsFromRedux> {
   };
 
   render() {
+    console.log(44444444);
     return (
       <ProductPage
         product={this.props.product}

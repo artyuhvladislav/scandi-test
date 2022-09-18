@@ -28,7 +28,12 @@ class SmallCart extends React.Component<PropsFromRedux, SmallCartStateI> {
       <div>
         <div className={s.root} onClick={this.toggleCartVisibility}>
           <img src={cart} alt="cart" />
-          <div className={s.count}>{this.props.totalCount}</div>
+
+          {this.props.totalCount === 0 ? (
+            ''
+          ) : (
+            <div className={s.count}>{this.props.totalCount}</div>
+          )}
         </div>
         {this.state.isOpen && <Modal toggleCartVisibility={this.toggleCartVisibility} />}
       </div>

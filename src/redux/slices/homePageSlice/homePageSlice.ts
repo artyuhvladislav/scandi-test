@@ -32,19 +32,19 @@ const homePageSlice = createSlice({
     reducers: {
         setProducts: (state, action: PayloadAction<ProductItemT[]>) => {
             state.products = action.payload
-            state.activeProducts = setActiveProducts(
-                state.maxProductsCount,
-                state.currentPage,
-                state.products
-            )
+            // state.activeProducts = setActiveProducts(
+            //     state.maxProductsCount,
+            //     state.currentPage,
+            //     state.products
+            // )
         },
         setCurrentPage: (state, action: PayloadAction<number>) => {
-            state.currentPage = action.payload
-            state.activeProducts = setActiveProducts(
-                state.maxProductsCount,
-                state.currentPage,
-                state.products
-            )
+            // state.currentPage = action.payload
+            // state.activeProducts = setActiveProducts(
+            //     state.maxProductsCount,
+            //     state.currentPage,
+            //     state.products
+            // )
         },
     },
     extraReducers: (builder) => {

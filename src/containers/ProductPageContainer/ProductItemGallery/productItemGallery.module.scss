@@ -8,10 +8,12 @@
     display: flex;
     flex-direction: column;
     margin-right: 40px;
+    max-height: 511px;
+    overflow: scroll;
 }
 
 .current {
-    max-width: 600px;
+    max-width: 610px;
 
     img {
         width: 100%;
@@ -20,12 +22,13 @@
 
 .item {
     max-width: 80px;
-    min-height: 80px;
+    height: 80px;
     margin-bottom: 40px;
     cursor: pointer;
 
     img {
         width: 100%;
+        height: 100%;
     }
 
     &:last-child {
