@@ -6,14 +6,57 @@ import { calcTotalPriceWithTax, getCartStateFromLS, setCartStateFromLS } from '.
 const defaultState: CartStateI = getCartStateFromLS()
 const initialState: CartStateI = setCartStateFromLS(defaultState)
 
+const checkSimilarProduct = (products: CartItemI[], productItem: CartItemI) => {
+    let index = 0;
+    const product = products.find(({ product }, idx) => {
+        index = idx
+        let val = false;
+        if (product.id === productItem.product.id) {
+            val = !!product.attributes.find((attribute, idx) => {
+                if (attribute.selectedItem.value !== productItem.product.attributes[idx].selectedItem.value) {
+                    return false
+                }
+                return true
+            })
+        }
+        return val
+
+    })
+    if (product) {
+        return [true, index]
+    }
+
+    return [false, null]
+}
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
         addProduct: (state, action: PayloadAction<CartItemI>) => {
-            state.items.push(action.payload)
-            state.totalCount++;
-            setCartStateFromLS({ ...state, items: [...state.items, action.payload] })
+            if (state.items.length === 0) {
+                state.items.push(action.payload)
+                state.totalCount++;
+            } else {
+                const [isSimilar, idx] = checkSimilarProduct(state.items, action.payload)
+                if (isSimilar) {
+                    debugger
+                    // @ts-ignore
+                    state.items[idx].count++
+                    state.totalCount++;
+
+                } else {
+                    state.items.push(action.payload)
+                    state.totalCount++;
+                }
+
+
+            }
+
+
+            // state.items.push(action.payload)
+            // state.totalCount++;
+            // setCartStateFromLS({ ...state, items: [...state.items, action.payload] })
 
         },
         addTotalCount: (state, action: PayloadAction<number>) => {
@@ -31,7 +74,8 @@ const cartSlice = createSlice({
                 const obj = item.product.prices.find(price => price.currency.symbol === action.payload.symbol) || { amount: 0 }
                 return sum + obj.amount * item.count
             }, 0)
-            state.totalPrice = +calcTotalPriceWithTax(price).toFixed(2) + +price.toFixed(2)
+
+            state.totalPrice = +(+calcTotalPriceWithTax(price).toFixed(2) + +price.toFixed(2)).toFixed(2)
             setCartStateFromLS({ ...state, totalPrice: state.totalPrice })
         },
         setSelectedCartAttribute: (state, action: PayloadAction<any>) => {

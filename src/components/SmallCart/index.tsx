@@ -12,6 +12,29 @@ interface SmallCartMapStateI {
 class SmallCart extends React.Component<PropsFromRedux, SmallCartStateI> {
   state = {
     isOpen: false,
+    modalMounted: false,
+  };
+
+  modalRef = React.createRef<HTMLDivElement>();
+  cartRef = React.createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    document.addEventListener('click', this.checkIfClickedOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.checkIfClickedOutside);
+  }
+
+  checkIfClickedOutside = (e: Event) => {
+    if (
+      this.state.isOpen &&
+      this.modalRef.current &&
+      !this.modalRef.current.contains(e.target as HTMLElement) &&
+      !this.cartRef.current?.contains(e.target as HTMLElement)
+    ) {
+      this.toggleCartVisibility();
+    }
   };
 
   toggleCartVisibility = () => {
@@ -26,7 +49,7 @@ class SmallCart extends React.Component<PropsFromRedux, SmallCartStateI> {
   render() {
     return (
       <div>
-        <div className={s.root} onClick={this.toggleCartVisibility}>
+        <div className={s.root} onClick={this.toggleCartVisibility} ref={this.modalRef}>
           <img src={cart} alt="cart" />
 
           {this.props.totalCount === 0 ? (
@@ -35,7 +58,7 @@ class SmallCart extends React.Component<PropsFromRedux, SmallCartStateI> {
             <div className={s.count}>{this.props.totalCount}</div>
           )}
         </div>
-        {this.state.isOpen && <Modal toggleCartVisibility={this.toggleCartVisibility} />}
+        <Modal isOpen={this.state.isOpen} cartRef={this.cartRef} />
       </div>
     );
   }

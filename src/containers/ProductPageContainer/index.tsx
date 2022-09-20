@@ -17,7 +17,6 @@ type ProductItemContainerStateT = {
 class ProductPageContainer extends React.Component<PropsFromRedux> {
   componentDidMount() {
     const id = getProductIdFromUrl();
-    console.log(id);
     this.props.fetchProduct(id).then(({ payload }) => {
       this.props.setProduct(payload as ProductItemT);
     });
@@ -35,7 +34,8 @@ class ProductPageContainer extends React.Component<PropsFromRedux> {
     return ReactHtmlParser(input, { transform });
   };
   addProductToCart = () => {
-    if (!this.props.product.inStock) {
+    if (this.props.product.inStock) {
+      console.log(this.props.product);
       this.props.addProduct({
         product: this.props.product,
         count: 1,
