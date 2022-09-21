@@ -1,33 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CurrencyItemT } from "../headerSlice/headerSliceTypes"
 import { CartStateI, CartItemI } from "./cartSliceTypes"
-import { calcTotalPriceWithTax, getCartStateFromLS, setCartStateFromLS } from './../../../utils/index';
+import { addProductToCartHelper, calcTotalPriceWithTax } from './../../../utils/index';
 
-const defaultState: CartStateI = getCartStateFromLS()
-const initialState: CartStateI = setCartStateFromLS(defaultState)
-
-const checkSimilarProduct = (products: CartItemI[], productItem: CartItemI) => {
-    let index = 0;
-    const product = products.find(({ product }, idx) => {
-        index = idx
-        let val = false;
-        if (product.id === productItem.product.id) {
-            val = !!product.attributes.find((attribute, idx) => {
-                if (attribute.selectedItem.value !== productItem.product.attributes[idx].selectedItem.value) {
-                    return false
-                }
-                return true
-            })
-        }
-        return val
-
-    })
-    if (product) {
-        return [true, index]
-    }
-
-    return [false, null]
+const initialState: CartStateI = {
+    items: [],
+    totalPrice: 0,
+    totalCount: 0
 }
+
+
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -38,10 +20,8 @@ const cartSlice = createSlice({
                 state.items.push(action.payload)
                 state.totalCount++;
             } else {
-                const [isSimilar, idx] = checkSimilarProduct(state.items, action.payload)
+                const [isSimilar, idx] = addProductToCartHelper(state.items, action.payload)
                 if (isSimilar) {
-                    debugger
-                    // @ts-ignore
                     state.items[idx].count++
                     state.totalCount++;
 
@@ -52,12 +32,6 @@ const cartSlice = createSlice({
 
 
             }
-
-
-            // state.items.push(action.payload)
-            // state.totalCount++;
-            // setCartStateFromLS({ ...state, items: [...state.items, action.payload] })
-
         },
         addTotalCount: (state, action: PayloadAction<number>) => {
             if (action.payload) {
@@ -67,7 +41,6 @@ const cartSlice = createSlice({
                 state.totalCount--;
 
             }
-            setCartStateFromLS({ ...state, totalCount: state.totalCount })
         },
         setTotalPrice: (state, action: PayloadAction<CurrencyItemT>) => {
             const price = state.items.reduce((sum, item: CartItemI) => {
@@ -76,18 +49,8 @@ const cartSlice = createSlice({
             }, 0)
 
             state.totalPrice = +(+calcTotalPriceWithTax(price).toFixed(2) + +price.toFixed(2)).toFixed(2)
-            setCartStateFromLS({ ...state, totalPrice: state.totalPrice })
         },
-        setSelectedCartAttribute: (state, action: PayloadAction<any>) => {
-            const id = action.payload.id
-            state.items[id].product.attributes = state.items[id].product.attributes.map(atr => {
-                if (atr.name === action.payload.name) {
-                    return { ...atr, selectedItem: action.payload.selectedItem }
-                }
-                return atr
-            })
-            setCartStateFromLS({ ...state })
-        },
+
         setItemCount: (state, action: PayloadAction<{ id: number, val: number }>) => {
             const id = action.payload.id
             if (action.payload.val) {
@@ -97,7 +60,6 @@ const cartSlice = createSlice({
                 state.items[id].count--
 
             }
-            setCartStateFromLS({ ...state, totalCount: state.totalCount })
         },
         removeItem: (state, action: PayloadAction<number>) => {
 
@@ -111,7 +73,6 @@ const cartSlice = createSlice({
             state.totalCount = state.items.reduce((sum, cur) => {
                 return sum + cur.count
             }, 0)
-            setCartStateFromLS({ ...state, totalCount: state.totalCount })
         },
     }
 })
@@ -119,7 +80,6 @@ const cartSlice = createSlice({
 export const {
     addProduct,
     setTotalPrice,
-    setSelectedCartAttribute,
     addTotalCount, setItemCount,
     removeItem } = cartSlice.actions
 export default cartSlice.reducer

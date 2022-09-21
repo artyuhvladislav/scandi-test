@@ -48,8 +48,5 @@ export interface ProductItemT {
 
 export interface HomePageStateI {
     products: ProductItemT[],
-    activeProducts: ProductItemT[],
-    currentPage: number,
-    maxProductsCount: number,
     status: Status,
 }

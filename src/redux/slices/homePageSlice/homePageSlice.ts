@@ -1,16 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getProductQuery } from '../../../graphql/query';
-import { getProductHelper, setActiveProducts } from '../../../utils';
+import { getProductHelper } from '../../../utils';
 import { Status } from '../headerSlice/headerSliceTypes';
 import { GetProductT, HomePageStateI, ProductItemT } from './homePageSliceTypes';
 import { BASE_URL } from './../../../constants/index';
 
 const initialState: HomePageStateI = {
     products: [],
-    activeProducts: [],
-    currentPage: 1,
-    maxProductsCount: 6,
     status: Status.LOADING,
 }
 
@@ -32,19 +29,6 @@ const homePageSlice = createSlice({
     reducers: {
         setProducts: (state, action: PayloadAction<ProductItemT[]>) => {
             state.products = action.payload
-            // state.activeProducts = setActiveProducts(
-            //     state.maxProductsCount,
-            //     state.currentPage,
-            //     state.products
-            // )
-        },
-        setCurrentPage: (state, action: PayloadAction<number>) => {
-            // state.currentPage = action.payload
-            // state.activeProducts = setActiveProducts(
-            //     state.maxProductsCount,
-            //     state.currentPage,
-            //     state.products
-            // )
         },
     },
     extraReducers: (builder) => {
@@ -65,5 +49,5 @@ const homePageSlice = createSlice({
     },
 })
 
-export const { setProducts, setCurrentPage } = homePageSlice.actions
+export const { setProducts } = homePageSlice.actions
 export default homePageSlice.reducer

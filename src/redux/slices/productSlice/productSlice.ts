@@ -5,16 +5,13 @@ import { getProductItemHelper, setDefaultSelectedAttribute } from '../../../util
 import { Status } from '../headerSlice/headerSliceTypes';
 import { GetProductItemT, ProductStateI } from './productSliceTypes';
 import { BASE_URL } from '../../../constants/index';
-import { ProductItemT, ProductPriceT, SelectedAttributeT } from '../homePageSlice/homePageSliceTypes';
-import { OptionItemT } from '../../../containers/ProductPageContainer/ProductItemOption';
+import { ProductItemT, ProductPriceT } from '../homePageSlice/homePageSliceTypes';
 
 const defaultState: ProductStateI = {
     product: {} as ProductItemT,
     status: Status.LOADING,
     price: {} as ProductPriceT,
 }
-
-// const attributes = setDefaultSelectedAttribute(defaultState.product.attributes)
 
 const initialState: ProductStateI = { ...defaultState }
 

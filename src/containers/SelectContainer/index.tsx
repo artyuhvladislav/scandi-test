@@ -38,7 +38,6 @@ class SelectContainer extends React.Component<SelectContainerPropsI> {
       this.selectRef.current &&
       !this.selectRef.current.contains(e.target as HTMLElement)
     ) {
-      debugger;
       this.setState({ isOpen: false });
     }
   };

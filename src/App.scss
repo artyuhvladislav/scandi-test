@@ -1,7 +1,12 @@
 @import './assets/styles/config/nullstyle.scss';
 @import './assets/styles/config/colors.css';
 
+html {
+    height: 100vh;
+}
+
 body {
+    height: 100%;
     overflow-y: scroll;
     color: #1D1F22;
     position: relative;

@@ -45,7 +45,6 @@ class ProductPageContainer extends React.Component<PropsFromRedux> {
   };
 
   render() {
-    console.log(44444444);
     return (
       <ProductPage
         product={this.props.product}

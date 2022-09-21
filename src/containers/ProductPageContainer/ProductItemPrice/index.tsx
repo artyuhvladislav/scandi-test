@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import { ProductPriceT } from '../../../redux/slices/homePageSlice/homePageSliceTypes';
-import { ProductStateI } from '../../../redux/slices/productSlice/productSliceTypes';
 import s from './productPrice.module.scss';
 
 interface ProductItemPricePropsI {
@@ -14,7 +12,7 @@ class ProductItemPrice extends React.Component<ProductItemPricePropsI> {
     if (this.props.prices) {
       const symbol = this.props?.prices[this.props.currencyId].currency.symbol;
       const price = this.props?.prices[this.props.currencyId].amount * (this.props.count || 1);
-      return `${symbol} ${price}`;
+      return `${symbol} ${price.toFixed(2)}`;
     }
   }
   render() {
@@ -27,16 +25,4 @@ class ProductItemPrice extends React.Component<ProductItemPricePropsI> {
   }
 }
 
-// const mapState = (state: ProductItemPriceStateI) => ({
-//   price: state.product.price,
-// });
-
-// const mapDispatch = {
-//   // setPrice,
-// };
-
-// const connector = connect(mapState, mapDispatch);
-// type PropsFromRedux = ConnectedProps<typeof connector>;
-
-// export default connector(ProductItemPrice);
 export default ProductItemPrice;

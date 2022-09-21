@@ -12,7 +12,6 @@ interface HomePagePropsI {
 
 class HomePage extends React.Component<HomePagePropsI> {
   render() {
-    console.log(1111);
     return (
       <div className={s.root}>
         <h1 className={s.title}>{this.props.currentCategory.name}</h1>

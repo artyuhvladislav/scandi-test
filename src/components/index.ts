@@ -5,6 +5,5 @@ export { default as SmallCart } from "./SmallCart";
 export { default as Currency } from "./Currency";
 export { default as Select } from "./Select";
 export { default as Product } from "./Product";
-export { default as Pagination } from "./Pagination";
 export { default as ProductPage } from "./ProductPage";
 

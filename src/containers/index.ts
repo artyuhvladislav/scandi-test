@@ -1,7 +1,6 @@
 export { default as SelectContainer } from './SelectContainer'
 export { default as CurrencyContainer } from './CurrencyContainer'
 export { default as NavigationContainer } from './NavigationContainer'
-export { default as PaginationContainer } from './PaginationContainer'
 export { default as HomePageContainer } from './HomePageContainer'
 export { default as ProductPageContainer } from './ProductPageContainer'
 export { default as ProductItemOptions } from './ProductPageContainer/ProductItemOptions'

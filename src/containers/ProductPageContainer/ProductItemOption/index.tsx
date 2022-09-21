@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { setSelectedCartAttribute } from '../../../redux/slices/cartSlice/cartSlice';
 import { CartStateI } from '../../../redux/slices/cartSlice/cartSliceTypes';
 import { setSelectedAttribute } from '../../../redux/slices/productSlice/productSlice';
 import { getSelectedOption, setBorderStyle } from '../../../utils';
@@ -70,20 +69,11 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
 
   setSelectedOption = (target: HTMLElement) => {
     const selectedOption: OptionItemT = getSelectedOption(target, this.props.options, this.ulRef);
-
     this.setState({ selectedOption });
-    if (this.props.items.length !== 0 && window.location.pathname === '/cart') {
-      this.props.setSelectedCartAttribute({
-        name: this.props.name,
-        selectedItem: selectedOption,
-        id: this.props.itemId,
-      });
-    } else {
-      this.props.setSelectedAttribute({
-        name: this.props.name,
-        selectedItem: selectedOption,
-      });
-    }
+    this.props.setSelectedAttribute({
+      name: this.props.name,
+      selectedItem: selectedOption,
+    });
   };
 
   render() {
@@ -107,7 +97,6 @@ const mapState = (state: ProductItemOptionStateFromStoreI) => ({
 
 const mapDispatch = {
   setSelectedAttribute,
-  setSelectedCartAttribute,
 };
 
 const connector = connect(mapState, mapDispatch);
