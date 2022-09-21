@@ -14,6 +14,7 @@ interface ProductItemOptionPropsI extends PropsFromRedux {
   options: OptionItemT[];
   selectedItem: OptionItemT;
   itemId: number | undefined;
+  selectable?: boolean;
 }
 
 interface ProductItemOptionStateI {
@@ -44,6 +45,12 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
     return value;
   }
 
+  setClassName() {
+    if (this.props.selectable === false) {
+      return `${s.itemNotSelectable}`;
+    }
+  }
+
   createOptionList() {
     return this.props.options.map((item, idx) => {
       const value = this.setInitialValue();
@@ -60,7 +67,11 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
         );
       }
       return (
-        <li key={idx} className={value === item.value ? `${s.item} ${s.active}` : s.item}>
+        <li
+          key={idx}
+          className={
+            (value === item.value ? `${s.item} ${s.active} ` : s.item) + ' ' + this.setClassName()
+          }>
           <span>{item.value}</span>
         </li>
       );
@@ -68,6 +79,7 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
   }
 
   setSelectedOption = (target: HTMLElement) => {
+    if (this.props.selectable === false) return;
     const selectedOption: OptionItemT = getSelectedOption(target, this.props.options, this.ulRef);
     this.setState({ selectedOption });
     this.props.setSelectedAttribute({

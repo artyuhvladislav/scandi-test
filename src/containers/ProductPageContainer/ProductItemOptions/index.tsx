@@ -8,6 +8,7 @@ import s from './productItemOptions.module.scss';
 
 interface ProductItemOptionsPropsI extends ProductItemT {
   itemId?: number;
+  selectable?: boolean;
 }
 class ProductItemOptions extends React.Component<ProductItemOptionsPropsI> {
   createProductItemOptions() {
@@ -19,6 +20,7 @@ class ProductItemOptions extends React.Component<ProductItemOptionsPropsI> {
           options={atr.items}
           name={atr.name}
           selectedItem={atr.selectedItem}
+          selectable={this.props.selectable}
         />
       );
     });

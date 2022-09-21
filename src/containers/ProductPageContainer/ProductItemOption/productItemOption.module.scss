@@ -58,3 +58,7 @@
         border: 1px solid var(--color-light-green);
     }
 }
+
+.itemNotSelectable {
+    cursor: not-allowed;
+}

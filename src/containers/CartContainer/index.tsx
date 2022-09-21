@@ -61,7 +61,7 @@ class CartContainer extends React.Component<CartContainerPropsI> {
       return (
         <li className={s.item} key={idx}>
           <div>
-            <ProductItemOptions {...item.product} itemId={idx} />
+            <ProductItemOptions {...item.product} itemId={idx} selectable={false} />
             <ProductItemPrice
               currencyId={this.setActiveCurrency(item)}
               prices={item.product.prices}
