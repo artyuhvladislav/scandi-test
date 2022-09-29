@@ -32,6 +32,7 @@ type CartContainerStateT = {
 
 interface CartContainerPropsI extends PropsFromRedux {
   isSmallCart?: boolean;
+  toggleCartVisibility?: () => void;
 }
 
 class CartContainer extends React.Component<CartContainerPropsI> {
@@ -59,14 +60,37 @@ class CartContainer extends React.Component<CartContainerPropsI> {
   createCartItems() {
     return this.props.items.map((item, idx) => {
       return (
-        <li className={s.item} key={idx}>
+        <li className={this.props.isSmallCart ? s.smallItem : s.item} key={idx}>
           <div>
-            <ProductItemOptions {...item.product} itemId={idx} selectable={false} />
-            <ProductItemPrice
-              currencyId={this.setActiveCurrency(item)}
-              prices={item.product.prices}
-              count={item.count}
+            <h2 className={this.props.isSmallCart ? s.smallBrand : s.brand}>
+              {item.product.brand}
+            </h2>
+            <p className={this.props.isSmallCart ? s.smallName : s.name}>{item.product.name}</p>
+            {this.props.isSmallCart ? (
+              <ProductItemPrice
+                currencyId={this.setActiveCurrency(item)}
+                prices={item.product.prices}
+                count={item.count}
+                isSmallCart={this.props.isSmallCart}
+              />
+            ) : (
+              ''
+            )}
+            <ProductItemOptions
+              {...item.product}
+              itemId={idx}
+              selectable={false}
+              isSmallCart={this.props.isSmallCart}
             />
+            {this.props.isSmallCart ? (
+              ''
+            ) : (
+              <ProductItemPrice
+                currencyId={this.setActiveCurrency(item)}
+                prices={item.product.prices}
+                count={item.count}
+              />
+            )}
           </div>
           <CartItemCount
             count={item.count}
@@ -74,9 +98,12 @@ class CartContainer extends React.Component<CartContainerPropsI> {
             setItemCount={this.setItemCount}
             setTotalPrice={this.setTotalPrice}
             id={idx}
+            isSmallCart={this.props.isSmallCart}
           />
           <CartItemGallery gallery={item.product.gallery} />
-          <button className={s.button} onClick={() => this.removeItem(idx)}>
+          <button
+            className={this.props.isSmallCart ? s.smallButton : s.button}
+            onClick={() => this.removeItem(idx)}>
             <img src={plus} alt="remove" />
           </button>
         </li>
@@ -88,7 +115,8 @@ class CartContainer extends React.Component<CartContainerPropsI> {
       <OpenedCart
         count={this.props.totalCount}
         price={this.props.totalPrice}
-        currency={this.props.currentCurrency.symbol}>
+        currency={this.props.currentCurrency.symbol}
+        toggleCartVisibility={this.props.toggleCartVisibility}>
         <ul className={s.list}>{this.createCartItems()}</ul>
       </OpenedCart>
     ) : (

@@ -26,6 +26,10 @@ class SmallCart extends React.Component<PropsFromRedux, SmallCartStateI> {
     document.removeEventListener('click', this.checkIfClickedOutside);
   }
 
+  checkLocation() {
+    return window.location.pathname === '/cart';
+  }
+
   checkIfClickedOutside = (e: Event) => {
     if (
       this.state.isOpen &&
@@ -58,7 +62,11 @@ class SmallCart extends React.Component<PropsFromRedux, SmallCartStateI> {
             <div className={s.count}>{this.props.totalCount}</div>
           )}
         </div>
-        <Modal isOpen={this.state.isOpen} cartRef={this.cartRef} />
+        <Modal
+          isOpen={this.state.isOpen}
+          cartRef={this.cartRef}
+          toggleCartVisibility={this.toggleCartVisibility}
+        />
       </div>
     );
   }

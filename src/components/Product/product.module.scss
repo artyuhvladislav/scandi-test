@@ -10,6 +10,8 @@
     transition: ease-in-out 0.2s;
 
 
+
+
     .productImg {
         display: block;
         margin: 0 auto;
@@ -21,6 +23,20 @@
     &:hover {
         background: #FFFFFF;
         box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+
+
+        .add {
+            position: absolute;
+            bottom: 72px;
+            right: 31px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #5ECE7B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }
 

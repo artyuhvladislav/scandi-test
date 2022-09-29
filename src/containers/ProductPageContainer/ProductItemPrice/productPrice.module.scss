@@ -1,9 +1,7 @@
 @import '../../../assets/styles/config/base.classes.scss';
 @import '../../../assets/styles/config/vars.scss';
 
-.root {
-    margin-bottom: 25px;
-}
+.root {}
 
 .title {
     @include boldFont(18px, 18px, '', $robotoFont);
@@ -13,5 +11,14 @@
 
 .item {
     @include boldFont(24px, 18px, '');
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.smallItem {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+    margin-bottom: 10px;
 }

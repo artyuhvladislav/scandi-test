@@ -4,11 +4,11 @@ import {
   ProductItemT,
 } from '../../../redux/slices/homePageSlice/homePageSliceTypes';
 import { ProductItemOption } from '../../../containers';
-import s from './productItemOptions.module.scss';
 
 interface ProductItemOptionsPropsI extends ProductItemT {
   itemId?: number;
   selectable?: boolean;
+  isSmallCart?: boolean;
 }
 class ProductItemOptions extends React.Component<ProductItemOptionsPropsI> {
   createProductItemOptions() {
@@ -21,18 +21,13 @@ class ProductItemOptions extends React.Component<ProductItemOptionsPropsI> {
           name={atr.name}
           selectedItem={atr.selectedItem}
           selectable={this.props.selectable}
+          isSmallCart={this.props.isSmallCart}
         />
       );
     });
   }
   render() {
-    return (
-      <div>
-        <h2 className={s.brand}>{this.props.brand}</h2>
-        <p className={s.name}>{this.props.name}</p>
-        {this.createProductItemOptions()}
-      </div>
-    );
+    return <div>{this.createProductItemOptions()}</div>;
   }
 }
 

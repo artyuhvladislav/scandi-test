@@ -1,5 +1,4 @@
 @import '../../assets/styles/config/base.classes.scss';
-// @import '../../assets/styles/config/vars.scss';
 
 .title {
     @include boldFont(16px, 25px);
@@ -27,10 +26,17 @@
     padding: 13px 36px;
     border: 1px solid var(--color-black);
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 .buttonGreen {
     border: 0;
     color: var(--color-white);
     background: var(--color-light-green);
+}
+
+.price span {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
 }

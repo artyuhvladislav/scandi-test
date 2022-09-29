@@ -8,6 +8,7 @@ interface HomePagePropsI {
   activeProducts: ProductItemT[];
   currentCategory: CategoryItemT;
   id: number;
+  addProductToCart: (inStock: boolean, product: ProductItemT) => void;
 }
 
 class HomePage extends React.Component<HomePagePropsI> {
@@ -17,7 +18,13 @@ class HomePage extends React.Component<HomePagePropsI> {
         <h1 className={s.title}>{this.props.currentCategory.name}</h1>
         <div className={s.grid}>
           {this.props.activeProducts.map((item) => (
-            <Product key={item.id} {...item} currencyId={this.props.id} />
+            <Product
+              key={item.id}
+              product={item}
+              {...item}
+              currencyId={this.props.id}
+              addProductToCart={this.props.addProductToCart}
+            />
           ))}
         </div>
       </div>

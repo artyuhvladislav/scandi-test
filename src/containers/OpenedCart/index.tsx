@@ -7,6 +7,7 @@ interface OpenedCartPropsI {
   price: number;
   currency: string;
   children: ReactNode | ReactNode[];
+  toggleCartVisibility?: () => void | undefined;
 }
 
 class OpenedCart extends React.Component<OpenedCartPropsI> {
@@ -14,7 +15,7 @@ class OpenedCart extends React.Component<OpenedCartPropsI> {
     return (
       <div>
         <h2 className={s.title}>
-          My bag,{' '}
+          My Bag,{' '}
           <span>
             {this.props.count === 1 ? this.props.count + ' item' : this.props.count + ' items'}
           </span>
@@ -28,7 +29,7 @@ class OpenedCart extends React.Component<OpenedCartPropsI> {
           </span>
         </div>
         <div className={s.buttons}>
-          <Link to="/cart">
+          <Link to="/cart" onClick={this.props.toggleCartVisibility}>
             <button className={s.button}>View bag</button>
           </Link>
           <button className={`${s.button} ${s.buttonGreen}`}>CHECK OUT</button>

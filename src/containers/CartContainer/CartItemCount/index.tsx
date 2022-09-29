@@ -1,4 +1,3 @@
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import React from 'react';
 import { plus, minus } from '../../../assets/icons';
 import s from './cartItemCount.module.scss';
@@ -9,6 +8,7 @@ interface CartItemCountPropsI {
   setItemCount: ({ id, val }: { id: number; val: number }) => void;
   setTotalPrice: () => void;
   id: number;
+  isSmallCart?: boolean;
 }
 
 interface CartItemCountStateI {
@@ -46,13 +46,13 @@ class CartItemCount extends React.Component<CartItemCountPropsI, CartItemCountSt
 
   render() {
     return (
-      <div className={s.root}>
-        <button className={s.button} onClick={this.minusCount} disabled={this.disabled()}>
-          <img src={minus} alt="-" />
-        </button>
-        <span>{this.state.count}</span>
+      <div className={this.props.isSmallCart ? s.smallRoot : s.root}>
         <button className={s.button} onClick={this.plusCount}>
           <img src={plus} alt="+" />
+        </button>
+        <span>{this.state.count}</span>
+        <button className={s.button} onClick={this.minusCount} disabled={this.disabled()}>
+          <img src={minus} alt="-" />
         </button>
       </div>
     );

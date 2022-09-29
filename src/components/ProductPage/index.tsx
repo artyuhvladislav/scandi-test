@@ -1,4 +1,3 @@
-import { ActionCreatorWithPayload, PayloadAction } from '@reduxjs/toolkit';
 import React from 'react';
 import {
   ProductItemOptions,
@@ -7,7 +6,6 @@ import {
   ProductItemButton,
   ProductItemDescription,
 } from '../../containers';
-import { OptionItemT } from '../../containers/ProductPageContainer/ProductItemOption';
 import { ProductItemT } from '../../redux/slices/homePageSlice/homePageSliceTypes';
 import s from './productPage.module.scss';
 

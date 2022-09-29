@@ -35,7 +35,6 @@ class ProductPageContainer extends React.Component<PropsFromRedux> {
   };
   addProductToCart = () => {
     if (this.props.product.inStock) {
-      console.log(this.props.product);
       this.props.addProduct({
         product: this.props.product,
         count: 1,

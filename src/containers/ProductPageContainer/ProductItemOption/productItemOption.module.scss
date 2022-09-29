@@ -11,6 +11,15 @@
     margin-bottom: 8px;
 }
 
+.smallTitle {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 10px;
+}
+
 .list {
     @include flex(flex-start);
 }
@@ -28,6 +37,10 @@
         @include flex();
         padding: 13px 27px;
         @include regularFont(16px, 18px, '', $sourceSansPro);
+    }
+
+    .itemSpan {
+        padding: 5px 2px 2px 2px
     }
 
     &:last-child {

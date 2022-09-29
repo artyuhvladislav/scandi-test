@@ -15,6 +15,7 @@ interface ProductItemOptionPropsI extends PropsFromRedux {
   selectedItem: OptionItemT;
   itemId: number | undefined;
   selectable?: boolean;
+  isSmallCart?: boolean;
 }
 
 interface ProductItemOptionStateI {
@@ -72,7 +73,7 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
           className={
             (value === item.value ? `${s.item} ${s.active} ` : s.item) + ' ' + this.setClassName()
           }>
-          <span>{item.value}</span>
+          <span className={this.props.isSmallCart ? s.itemSpan : ''}>{item.value}</span>
         </li>
       );
     });
@@ -91,7 +92,7 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
   render() {
     return (
       <div className={s.root}>
-        <h3 className={s.title}>{this.props.name}:</h3>
+        <h3 className={this.props.isSmallCart ? s.smallTitle : s.title}>{this.props.name}:</h3>
         <ul
           className={s.list}
           ref={this.ulRef}

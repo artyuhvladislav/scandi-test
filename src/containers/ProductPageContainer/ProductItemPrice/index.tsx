@@ -6,6 +6,7 @@ interface ProductItemPricePropsI {
   currencyId: number;
   prices: ProductPriceT[];
   count?: number;
+  isSmallCart?: boolean;
 }
 class ProductItemPrice extends React.Component<ProductItemPricePropsI> {
   setPrice() {
@@ -18,8 +19,8 @@ class ProductItemPrice extends React.Component<ProductItemPricePropsI> {
   render() {
     return (
       <div className={s.root}>
-        <h3 className={s.title}>Price: </h3>
-        <p className={s.item}>{this.setPrice()}</p>
+        {this.props.isSmallCart ? '' : <h3 className={s.title}>Price: </h3>}
+        <p className={this.props.isSmallCart ? s.smallItem : s.item}>{this.setPrice()}</p>
       </div>
     );
   }

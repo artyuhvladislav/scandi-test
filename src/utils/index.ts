@@ -69,16 +69,17 @@ export const calcTotalPriceWithTax = (price: number, tax = TAX) => {
 }
 
 export const setDefaultSelectedAttribute = (items: ProductAttributeT[]) => {
-    return items.map((item) => ({ ...item, selectedItem: item.items[0] }))
+    const itemsCopy: ProductAttributeT[] = JSON.parse(JSON.stringify(items))
+    return itemsCopy.map((item) => ({ ...item, selectedItem: item.items[0] }))
 }
 
 export const addProductToCartHelper = (products: CartItemI[], productItem: CartItemI) => {
     let id = 0;
     let isSimilar = false;
+    console.log()
     products.forEach(({ product }, idx) => {
         if (product.name === productItem.product.name) {
             const value = product.attributes.every((attribute, idx) => {
-
                 return attribute?.selectedItem.value === productItem.product.attributes[idx].selectedItem.value
             })
             if (value) {

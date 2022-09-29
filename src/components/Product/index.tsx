@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProductItemT } from '../../redux/slices/homePageSlice/homePageSliceTypes';
+import { cartWhite } from '../../assets/icons';
 import s from './product.module.scss';
 
 interface ProductPropsI extends ProductItemT {
   currencyId: number;
+  product: ProductItemT;
+  addProductToCart: (inStock: boolean, product: ProductItemT) => void;
 }
 class Product extends React.Component<ProductPropsI> {
   render() {
@@ -21,6 +24,15 @@ class Product extends React.Component<ProductPropsI> {
             </span>
           </div>
         </Link>
+        {this.props.inStock && (
+          <div
+            className={s.add}
+            onClick={() => {
+              this.props.addProductToCart(this.props.inStock, this.props.product);
+            }}>
+            <img src={cartWhite} alt="cart" />
+          </div>
+        )}
       </div>
     );
   }
