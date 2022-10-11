@@ -2,6 +2,7 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Home } from '../../pages';
 import { addProduct, setTotalPrice } from '../../redux/slices/cartSlice/cartSlice';
+import { CartStateI } from '../../redux/slices/cartSlice/cartSliceTypes';
 import { CategoryItemT, HeaderStateI } from '../../redux/slices/headerSlice/headerSliceTypes';
 import { getProduct, setProducts } from '../../redux/slices/homePageSlice/homePageSlice';
 import { HomePageStateI, ProductItemT } from '../../redux/slices/homePageSlice/homePageSliceTypes';
@@ -15,6 +16,7 @@ interface HomePageContainerPropsI extends PropsFromRedux {
 export type HomePageContainerStateT = {
   header: HeaderStateI;
   home: HomePageStateI;
+  cart: CartStateI;
 };
 
 class HomePageContainer extends React.Component<HomePageContainerPropsI> {
@@ -70,6 +72,7 @@ const mapState = (state: HomePageContainerStateT) => ({
   currentCategory: state.header.currentCategory,
   products: state.home.products,
   currentCurrency: state.header.currentCurrency,
+  cart: state.cart,
 });
 
 const mapDispatch = {

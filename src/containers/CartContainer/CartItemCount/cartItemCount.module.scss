@@ -32,31 +32,31 @@
     }
 }
 
-// .button {
-    //     @include flex();
-    //     width: 45px;
-    //     height: 45px;
-    //     border: 1px solid var(--color-black);
-    //     cursor: pointer;
+.button {
+    @include flex();
+    width: 45px;
+    height: 45px;
+    border: 1px solid var(--color-black);
+    cursor: pointer;
 
-    //     &:disabled {
-    //         cursor: not-allowed;
+    &:disabled {
+        cursor: not-allowed;
 
-    //         &:hover {
-    //             img {
-    //                 scale: 1;
-    //             }
-    //         }
-    //     }
+        &:hover {
+            img {
+                scale: 1;
+            }
+        }
+    }
 
-    //     img {
-    //         transition: ease-in-out 0.2s;
-    //     }
+    img {
+        transition: ease-in-out 0.2s;
+    }
 
-    //     &:hover {
-    //         img {
-    //             scale: 1.5;
-    //         }
-    //     }
+    &:hover {
+        img {
+            scale: 1.5;
+        }
+    }
 
-    // }
+}

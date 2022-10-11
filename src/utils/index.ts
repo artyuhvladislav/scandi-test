@@ -90,3 +90,33 @@ export const addProductToCartHelper = (products: CartItemI[], productItem: CartI
     })
     return [isSimilar, id] as [boolean, number]
 }
+
+export const getCartItemsFromLS = () => {
+    const defaultState = {
+        items: [],
+        totalPrice: 0,
+        totalCount: 0
+    }
+    const data = localStorage.getItem('cart');
+    const { items, totalPrice, totalCount } = data ? JSON.parse(data) : defaultState;
+    return {
+        items,
+        totalPrice,
+        totalCount
+    };
+};
+
+export const getCurrentCurrencyFromLS = () => {
+    const currentCurrency = {
+        symbol: '$',
+        label: 'USD'
+    }
+
+    const data = localStorage.getItem('currentCurrency');
+    const { symbol, label } = data ? JSON.parse(data) : currentCurrency;
+    return {
+        symbol,
+        label,
+    };
+};
+

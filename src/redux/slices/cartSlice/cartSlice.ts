@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CurrencyItemT } from "../headerSlice/headerSliceTypes"
 import { CartStateI, CartItemI } from "./cartSliceTypes"
-import { addProductToCartHelper, calcTotalPriceWithTax } from './../../../utils/index';
+import { addProductToCartHelper, calcTotalPriceWithTax, getCartItemsFromLS } from './../../../utils/index';
+
+const { items, totalPrice, totalCount } = getCartItemsFromLS()
 
 const initialState: CartStateI = {
-    items: [],
-    totalPrice: 0,
-    totalCount: 0
+    items,
+    totalPrice,
+    totalCount
 }
-
-
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -19,6 +19,8 @@ const cartSlice = createSlice({
             if (state.items.length === 0) {
                 state.items.push(action.payload)
                 state.totalCount++;
+                const json = JSON.stringify(state);
+                localStorage.setItem('cart', json);
             } else {
                 const [isSimilar, idx] = addProductToCartHelper(state.items, action.payload)
                 if (isSimilar) {
@@ -29,16 +31,20 @@ const cartSlice = createSlice({
                     state.items.push(action.payload)
                     state.totalCount++;
                 }
-
-
+                const json = JSON.stringify(state);
+                localStorage.setItem('cart', json);
             }
         },
         addTotalCount: (state, action: PayloadAction<number>) => {
             if (action.payload) {
                 state.totalCount++;
+                const json = JSON.stringify(state);
+                localStorage.setItem('cart', json);
 
             } else {
                 state.totalCount--;
+                const json = JSON.stringify(state);
+                localStorage.setItem('cart', json);
 
             }
         },
@@ -49,15 +55,21 @@ const cartSlice = createSlice({
             }, 0)
 
             state.totalPrice = +(+calcTotalPriceWithTax(price).toFixed(2) + +price.toFixed(2)).toFixed(2)
+            const json = JSON.stringify(state);
+            localStorage.setItem('cart', json);
         },
 
         setItemCount: (state, action: PayloadAction<{ id: number, val: number }>) => {
             const id = action.payload.id
             if (action.payload.val) {
                 state.items[id].count++
+                const json = JSON.stringify(state);
+                localStorage.setItem('cart', json);
 
             } else {
                 state.items[id].count--
+                const json = JSON.stringify(state);
+                localStorage.setItem('cart', json);
 
             }
         }

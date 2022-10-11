@@ -2,14 +2,16 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BASE_URL } from '../../../constants';
 import { getCategoryQuery, getCurrencyQuery } from '../../../graphql/query';
-import { getCategoryHelper } from '../../../utils';
+import { getCategoryHelper, getCurrentCurrencyFromLS } from '../../../utils';
 import { CategoryItemT, CurrencyItemT, GetCategoryT, HeaderStateI, Status } from './headerSliceTypes';
+
+const { symbol, label } = getCurrentCurrencyFromLS()
 
 const initialState: HeaderStateI = {
     currencies: [],
     currentCurrency: {
-        symbol: '$',
-        label: 'USD'
+        symbol,
+        label
     },
     status: Status.LOADING,
     categories: [],
@@ -53,6 +55,8 @@ const headerSlice = createSlice({
         },
         setCurrentCurrency: (state, action: PayloadAction<CurrencyItemT>) => {
             state.currentCurrency = action.payload
+            const json = JSON.stringify(state.currentCurrency);
+            localStorage.setItem('currentCurrency', json);
         },
         setCategories: (state, action: PayloadAction<CategoryItemT[]>) => {
             state.categories = action.payload

@@ -74,7 +74,11 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
           key={idx}
           className={
             (value === item.value ? `${s.item} ${s.active} ` : s.item) + ' ' + this.setClassName()
-          }>
+          }
+          style={{
+            width: this.props.isSmallCart ? '24px' : '63px',
+            height: this.props.isSmallCart ? '24px' : '45px',
+          }}>
           <span className={this.props.isSmallCart ? s.itemSpan : ''}>{item.value}</span>
         </li>
       );
