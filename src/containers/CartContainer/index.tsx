@@ -10,18 +10,12 @@ import {
   ProductItemPrice,
 } from '..';
 import { Cart } from '../../pages';
-import {
-  addTotalCount,
-  removeItem,
-  setItemCount,
-  setTotalPrice,
-} from '../../redux/slices/cartSlice/cartSlice';
+import { addTotalCount, setItemCount, setTotalPrice } from '../../redux/slices/cartSlice/cartSlice';
 import { CartStateI } from '../../redux/slices/cartSlice/cartSliceTypes';
 import { HeaderStateI } from '../../redux/slices/headerSlice/headerSliceTypes';
 import { ProductStateI } from '../../redux/slices/productSlice/productSliceTypes';
 import { setActiveCurrency } from '../../utils';
 import { CartItemI } from './../../redux/slices/cartSlice/cartSliceTypes';
-import { plus } from '../../assets/icons';
 import s from './cartContainer.module.scss';
 
 type CartContainerStateT = {
@@ -46,11 +40,6 @@ class CartContainer extends React.Component<CartContainerPropsI> {
 
   setItemCount = ({ id, val }: { id: number; val: number }) => {
     this.props.setItemCount({ id, val });
-  };
-
-  removeItem = (idx: number) => {
-    this.props.removeItem(idx);
-    this.setTotalPrice();
   };
 
   setTotalPrice = () => {
@@ -101,11 +90,6 @@ class CartContainer extends React.Component<CartContainerPropsI> {
             isSmallCart={this.props.isSmallCart}
           />
           <CartItemGallery gallery={item.product.gallery} isSmallCart={this.props.isSmallCart} />
-          {/* <button
-            className={this.props.isSmallCart ? s.smallButton : s.button}
-            onClick={() => this.removeItem(idx)}>
-            <img src={plus} alt="remove" />
-          </button> */}
         </li>
       );
     });
@@ -143,7 +127,6 @@ const mapState = (state: CartContainerStateT) => ({
 const mapDispatch = {
   addTotalCount,
   setItemCount,
-  removeItem,
   setTotalPrice,
 };
 
