@@ -10,20 +10,18 @@
 }
 
 .price {
-    min-width: 300px;
     @include flex(space-between);
     margin-bottom: 32px;
     @include boldFont(16px, 18px, 700, $robotoFont)
 }
 
 .buttons {
-    min-width: 300px;
     @include flex(space-between);
 }
 
 .button {
     @include mediumFont(14px, 16px);
-    padding: 13px 36px;
+    padding: 13px 32px;
     border: 1px solid var(--color-black);
     cursor: pointer;
     text-transform: uppercase;

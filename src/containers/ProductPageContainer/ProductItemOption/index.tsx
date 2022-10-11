@@ -64,6 +64,8 @@ class ProductItemOption extends React.Component<ProductItemOptionPropsI, Product
             style={{
               background: item.value,
               border: `${setBorderStyle(item.value)}`,
+              width: !this.props.isSmallCart ? '32px' : '16px',
+              height: !this.props.isSmallCart ? '32px' : '16px',
             }}></li>
         );
       }

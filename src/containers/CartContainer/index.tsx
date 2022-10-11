@@ -100,12 +100,12 @@ class CartContainer extends React.Component<CartContainerPropsI> {
             id={idx}
             isSmallCart={this.props.isSmallCart}
           />
-          <CartItemGallery gallery={item.product.gallery} />
-          <button
+          <CartItemGallery gallery={item.product.gallery} isSmallCart={this.props.isSmallCart} />
+          {/* <button
             className={this.props.isSmallCart ? s.smallButton : s.button}
             onClick={() => this.removeItem(idx)}>
             <img src={plus} alt="remove" />
-          </button>
+          </button> */}
         </li>
       );
     });

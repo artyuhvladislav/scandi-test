@@ -4,6 +4,7 @@
     position: relative;
     max-height: 288px;
     max-width: 200px;
+    @include flex();
 
     img {
         max-width: 100%;

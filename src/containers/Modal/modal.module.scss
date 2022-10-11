@@ -14,14 +14,14 @@
 .modalContainer {
     position: relative;
     padding: 32px 16px;
-    max-width: 725px;
+    max-width: 342px;
     max-height: 677px;
     position: fixed;
     z-index: 2;
     right: 200px;
     top: 80px;
     background: var(--color-white);
-    overflow-y: scroll
+    overflow-y: auto;
 }
 
 .close {

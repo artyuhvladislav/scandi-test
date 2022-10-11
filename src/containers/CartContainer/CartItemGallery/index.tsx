@@ -4,6 +4,7 @@ import s from './cartItemGallery.module.scss';
 
 interface CartItemGalleryPropsI {
   gallery: string[];
+  isSmallCart?: boolean;
 }
 
 interface CartItemGalleryStateI {
@@ -34,7 +35,7 @@ class CartItemGallery extends React.Component<CartItemGalleryPropsI, CartItemGal
     return (
       <div className={s.root}>
         <img src={this.props.gallery[this.state.currentImgId]} alt="img gallery" />
-        {this.props.gallery.length > 1 ? (
+        {this.props.gallery.length > 1 && !this.props.isSmallCart ? (
           <div className={s.buttons}>
             <button className={s.button} onClick={this.setPrevImgId}>
               <img src={arrow} alt="-" />
